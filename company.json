@@ -1,0 +1,326 @@
+{
+    "Company Name": "Alexandria Mineral Oils",
+    "Company Description": "The Alexandria Mineral Oils Company (AMOC) is a prominent entity within the Egyptian petroleum sector. Established in accordance with the provisions of Investment Guarantees and Incentives Law No. 8 of 1997, the company is dedicated to fulfilling the domestic market demand for petroleum products while also exporting surplus to neighboring nations.",
+    "Financial Statements": {
+        "Balance Sheets": {
+            "2023": {
+                "Period Ending": "30/06",
+                "Total Current Assets": 5720.86,
+                "Cash and Short Term Investments": 3278.68,
+                "Cash": null,
+                "Cash & Equivalents": 3278.68,
+                "Short Term Investments": null,
+                "Total Receivables, Net": 747.7,
+                "Accounts Receivables - Trade, Net": 573.26,
+                "Total Inventory": 1206.92,
+                "Prepaid Expenses": null,
+                "Other Current Assets, Total": 487.57,
+                "Total Assets": 6686.41,
+                "Property/Plant/Equipment, Total - Net": 953.32,
+                "Property/Plant/Equipment, Total - Gross": 2535.67,
+                "Accumulated Depreciation, Total": -1582.35,
+                "Goodwill, Net": null,
+                "Intangibles, Net": 0.227,
+                "Long Term Investments": 12,
+                "Note Receivable - Long Term": 174.44,
+                "Other Long Term Assets, Total": null,
+                "Other Assets, Total": 946.79,
+                "Total Current Liabilities": 2594.63,
+                "Accounts Payable": 1.91,
+                "Payable/Accrued": null,
+                "Accrued Expenses": 203.86,
+                "Notes Payable/Short Term Debt": null,
+                "Current Port. of LT Debt/Capital Leases": null,
+                "Other Current liabilities, Total": 2388.86,
+                "Total Liabilities": 2703.14,
+                "Total Long Term Debt": 10.12,
+                "Long Term Debt": null,
+                "Capital Lease Obligations": 10.12,
+                "Deferred Income Tax": 98.39,
+                "Minority Interest": 44.17,
+                "Other Liabilities, Total": -44.17,
+                "Total Equity": 3983.26,
+                "Redeemable Preferred Stock, Total": null,
+                "Preferred Stock - Non Redeemable, Net": null,
+                "Common Stock, Total": 1291.5,
+                "Additional Paid-In Capital": null,
+                "Retained Earnings (Accumulated Deficit)": 2645.36,
+                "Treasury Stock - Common": null,
+                "ESOP Debt Guarantee": null,
+                "Unrealized Gain (Loss)": null,
+                "Other Equity, Total": 46.41,
+                "Total Liabilities & Shareholders' Equity": 6686.41,
+                "Total Common Shares Outstanding": 1291.5,
+                "Total Preferred Shares Outstanding": null
+            },
+            "2022": {
+                "Period Ending": "30/06",
+                "Total Current Assets": 3990.76,
+                "Cash and Short Term Investments": 1565.82,
+                "Cash": null,
+                "Cash & Equivalents": 1565.82,
+                "Short Term Investments": null,
+                "Total Receivables, Net": 886.23,
+                "Accounts Receivables - Trade, Net": 398.83,
+                "Total Inventory": 1418.14,
+                "Prepaid Expenses": 42.75,
+                "Other Current Assets, Total": 77.82,
+                "Total Assets": 4921.19,
+                "Property/Plant/Equipment, Total - Net": 918.13,
+                "Property/Plant/Equipment, Total - Gross": 2430.38,
+                "Accumulated Depreciation, Total": -1512.25,
+                "Goodwill, Net": null,
+                "Intangibles, Net": 0.302,
+                "Long Term Investments": 12,
+                "Note Receivable - Long Term": 487.4,
+                "Other Long Term Assets, Total": null,
+                "Other Assets, Total": 609.73,
+                "Total Current Liabilities": 1551.6,
+                "Accounts Payable": 10.53,
+                "Payable/Accrued": null,
+                "Accrued Expenses": 151.76,
+                "Notes Payable/Short Term Debt": null,
+                "Current Port. of LT Debt/Capital Leases": 0.25,
+                "Other Current liabilities, Total": 1389.07,
+                "Total Liabilities": 1667.78,
+                "Total Long Term Debt": null,
+                "Long Term Debt": null,
+                "Capital Lease Obligations": null,
+                "Deferred Income Tax": 116.18,
+                "Minority Interest": 23.89,
+                "Other Liabilities, Total": -23.89,
+                "Total Equity": 3253.41,
+                "Redeemable Preferred Stock, Total": null,
+                "Preferred Stock - Non Redeemable, Net": null,
+                "Common Stock, Total": 1291.5,
+                "Additional Paid-In Capital": null,
+                "Retained Earnings (Accumulated Deficit)": 1935.78,
+                "Treasury Stock - Common": null,
+                "ESOP Debt Guarantee": null,
+                "Unrealized Gain (Loss)": null,
+                "Other Equity, Total": 26.13,
+                "Total Liabilities & Shareholders' Equity": 4921.19,
+                "Total Common Shares Outstanding": 1291.5,
+                "Total Preferred Shares Outstanding": null
+            }
+        },
+        "Income Statements": {
+            "2023": {
+                "Period Ending": "30/06",
+                "Total Revenue": 24208.34,
+                "Revenue": 24208.34,
+                "Other Revenue, Total": null,
+                "Cost of Revenue, Total": 21894.33,
+                "Gross Profit": 2314.01,
+                "Total Operating Expenses": 22684.51,
+                "Selling/General/Admin. Expenses, Total": 555.45,
+                "Research & Development": null,
+                "Depreciation / Amortization": 5.29,
+                "Interest Expense (Income) - Net Operating": -0.245,
+                "Unusual Expense (Income)": null,
+                "Other Operating Expenses, Total": 229.68,
+                "Operating Income": 1523.83,
+                "Interest Income (Expense), Net Non-Operating": null,
+                "Gain (Loss) on Sale of Assets": 0.208,
+                "Other, Net": -263.52,
+                "Net Income Before Taxes": 1787.14,
+                "Provision for Income Taxes": 415.1,
+                "Net Income After Taxes": 1372.05,
+                "Minority Interest": 44.17,
+                "Equity In Affiliates": null,
+                "U.S GAAP Adjustment": null,
+                "Net Income Before Extraordinary Items": 1330.5,
+                "Total Extraordinary Items": null,
+                "Net Income": 1330.5,
+                "Total Adjustments to Net Income": -139.85,
+                "Income Available to Common Excluding Extraordinary Items": 1190.65,
+                "Dilution Adjustment": 139.85,
+                "Diluted Net Income": 1190.65,
+                "Diluted Weighted Average Shares": 1291.5,
+                "Diluted EPS Excluding Extraordinary Items": 0.922,
+                "DPS - Common Stock Primary Issue": 0.65,
+                "Diluted Normalized EPS": 0.827
+            },
+            "2022": {
+                "Period Ending": "30/06",
+                "Total Revenue": 18441.86,
+                "Revenue": 18441.86,
+                "Other Revenue, Total": null,
+                "Cost of Revenue, Total": 15889.54,
+                "Gross Profit": 2552.31,
+                "Total Operating Expenses": 16764.65,
+                "Selling/General/Admin. Expenses, Total": 466.36,
+                "Research & Development": null,
+                "Depreciation / Amortization": 83.77,
+                "Interest Expense (Income) - Net Operating": null,
+                "Unusual Expense (Income)": null,
+                "Other Operating Expenses, Total": 325.35,
+                "Operating Income": 1677.21,
+                "Interest Income (Expense), Net Non-Operating": null,
+                "Gain (Loss) on Sale of Assets": 0.761,
+                "Other, Net": -128.92,
+                "Net Income Before Taxes": 1191.01,
+                "Provision for Income Taxes": -26.57,
+                "Net Income After Taxes": 1217.58,
+                "Minority Interest": 23.89,
+                "Equity In Affiliates": null,
+                "U.S GAAP Adjustment": null,
+                "Net Income Before Extraordinary Items": 1194.12,
+                "Total Extraordinary Items": null,
+                "Net Income": 1194.12,
+                "Total Adjustments to Net Income": -127.19,
+                "Income Available to Common Excluding Extraordinary Items": 1066.93,
+                "Dilution Adjustment": 127.19,
+                "Diluted Net Income": 1066.93,
+                "Diluted Weighted Average Shares": 1291.5,
+                "Diluted EPS Excluding Extraordinary Items": 0.826,
+                "DPS - Common Stock Primary Issue": 0.25,
+                "Diluted Normalized EPS": 0.557
+            }
+        },
+        "Cash Flow Statements": {
+            "2023": {
+                "Period Ending": "30/06",
+                "Net Income/Starting Line": 1330.5,
+                "Cash From Operating Activities": 2328.56,
+                "Depreciation/Depletion": 92.86,
+                "Amortization": null,
+                "Deferred Taxes": null,
+                "Non-Cash Items": 237.79,
+                "Cash Taxes Paid": 509.24,
+                "Cash Interest Paid": 0.22,
+                "Changes in Working Capital": 667.34,
+                "Cash From Investing Activities": 127.23,
+                "Capital Expenditures": -111.45,
+                "Other Investing Cash Flow Items, Total": 238.68,
+                "Cash From Financing Activities": -979.89,
+                "Financing Cash Flow Items": -0.22,
+                "Total Cash Dividends Paid": -973.68,
+                "Issuance (Retirement) of Stock, Net": null,
+                "Issuance (Retirement) of Debt, Net": -5.99,
+                "Foreign Exchange Effects": 139.43,
+                "Net Change in Cash": 1712.86,
+                "Beginning Cash Balance": 1565.82,
+                "Ending Cash Balance": 3278.68,
+                "Free Cash Flow": 1959.76,
+                "Free Cash Flow Growth": 397.01,
+                "Free Cash Flow Yield": 21.14
+            },
+            "2022": {
+                "Period Ending": "30/06",
+                "Net Income/Starting Line": 1194.12,
+                "Cash From Operating Activities": 540.3,
+                "Depreciation/Depletion": 83.77,
+                "Amortization": null,
+                "Deferred Taxes": null,
+                "Non-Cash Items": 840.44,
+                "Cash Taxes Paid": 72.38,
+                "Cash Interest Paid": 1.67,
+                "Changes in Working Capital": -1578.07,
+                "Cash From Investing Activities": 73.64,
+                "Capital Expenditures": -60.56,
+                "Other Investing Cash Flow Items, Total": 134.2,
+                "Cash From Financing Activities": -336.89,
+                "Financing Cash Flow Items": -1.67,
+                "Total Cash Dividends Paid": -335.22,
+                "Issuance (Retirement) of Stock, Net": null,
+                "Issuance (Retirement) of Debt, Net": null,
+                "Foreign Exchange Effects": 78.88,
+                "Net Change in Cash": 305.64,
+                "Beginning Cash Balance": 1260.17,
+                "Ending Cash Balance": 1565.82,
+                "Free Cash Flow": 341.75,
+                "Free Cash Flow Growth": -14.79,
+                "Free Cash Flow Yield": 10.43
+            }
+        }
+    },
+    "Ratios (Examples)": {
+        "Liquidity Ratios": {
+            "Current Ratio": {
+                "2023": 2.19,
+                "2022": 2.57
+            },
+            "Quick Ratio": {
+                "2023": 1.11,
+                "2022": 1.01
+            },
+            "Cash Ratio": {
+                "2023": 1.26,
+                "2022": 0.68
+            }
+        },
+        "Profitability Ratios": {
+            "Gross Margin": {
+                "2023": 9.55,
+                "2022": 13.83
+            },
+            "Operating Margin": {
+                "2023": 6.3,
+                "2022": 9.1
+            },
+            "Net Margin": {
+                "2023": 5.67,
+                "2022": 6.48
+            },
+            "Return on Assets": {
+                "2023": 20.5,
+                "2022": 24.35
+            },
+            "Return on Equity": {
+                "2023": 34.4,
+                "2022": 36.68
+            }
+        },
+        "Efficiency Ratios": {
+            "Inventory Turnover": {
+                "2023": 15.98,
+                "2022": 10.94
+            },
+            "Days Sales Outstanding": {
+                "2023": 48.5,
+                "2022": 47.5
+            },
+            "Fixed Asset Turnover": {
+                "2023": 25.34,
+                "2022": 20.1
+            },
+            "Total Asset Turnover": {
+                "2023": 3.62,
+                "2022": 3.75
+            }
+        },
+        "Leverage Ratios": {
+            "Debt to Equity": {
+                "2023": 0.68,
+                "2022": 0.51
+            },
+            "Debt to Assets": {
+                "2023": 0.29,
+                "2022": 0.34
+            },
+            "Interest Coverage": {
+                "2023": -6177.96,
+                "2022": null
+            }
+        },
+        "Market Ratios": {
+            "Price to Earnings": {
+                "2023": 6.3,
+                "2022": 8.1
+            },
+            "Price to Sales": {
+                "2023": 0.28,
+                "2022": 0.33
+            },
+            "Price to Book": {
+                "2023": 0.67,
+                "2022": 0.51
+            },
+            "Dividend Yield": {
+                "2023": 0.5,
+                "2022": 0.25
+            }
+        }
+    }
+}
