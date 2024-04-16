@@ -1,146 +1,75 @@
 {
   "first_rep": {
-    "Dates": ["2021", "2022", "2023"],
+    "Dates": [
+      "2021",
+      "2022",
+      "2023"
+    ],
     "totall Assets": 3.2,
     "total Liabilities": 1.2
   },
   "sec resp": {
     "2023": {
       "current ratio": {
-        "valWue": 1.5,
+        "value": 1.5,
         "fourmula": {
-          "numerator": ["current assets"],
-          "denominator": ["current liabilities"]
-        },
-        "current assets": 1.5,
-        "current liabilities": 1.0
+          "rule": "current assets / current liabilities",
+          "numbers": "1.5 / 1.0"
+        }
       },
       "quick ratio": {
         "value": 1.0,
         "fourmula": {
-          "numerator": ["current assets", "inventory"],
-          "denominator": ["current liabilities"]
-        },
-        "current assets": 1.5,
-        "inventory": -0.5,
-        "current liabilities": 1.0
+          "rule": "(current assets - inventory) / current liabilities",
+          "numbers": "(1.5 - 0.5) / 1.0"
+        }
       },
       "cash ratio": {
         "value": 0.5,
         "fourmula": {
-          "numerator": ["cash", "inventory", "Accounts receivable"],
-          "denominator": ["current liabilities"]
-        },
-        "cash": 0.5,
-        "inventory": -0.0,
-        "Accounts receivable": 0.0,
-        "current liabilities": 1.0
-      }
-    }
-  },
-  "third res": {
-    "2023": {
-      "leq ratios": {
-        "current ratio": {
-          "value": 1.5,
-          "fourmula": {
-            "numerator": ["current assets"],
-            "denominator": ["current liabilities"]
-          },
-          "current assets": 1.5,
-          "current liabilities": 1.0
-        },
-        "quick ratio": {
-          "value": 1.0,
-          "fourmula": {
-            "numerator": ["current assets x inventory"],
-            "denominator": ["current liabilities"]
-          },
-          "current assets": 1.5,
-          "inventory": -0.5,
-          "current liabilities": 1.0
-        },
-        "cash ratio": {
-          "value": 0.5,
-          "fourmula": {
-            "numerator": ["cash", "inventory", "Accounts receivable"],
-            "denominator": ["current liabilities"]
-          },
-          "cash": 0.5,
-          "inventory": -0.0,
-          "Accounts receivable": 0.0,
-          "current liabilities": 1.0
+          "rule": "(cash + inventory + Accounts receivable) / current liabilities",
+          "numbers": "(0.5 + 0.0 + 0.0) / 1.0"
         }
       }
     }
   },
-  "fourth answer": {
+  "one compare": {
+    "ratio": "current ratio",
+    "fourmula": "current assets / current liabilities",
     "2023": {
-      "leq ratios": {
-        "current ratio": {
-          "value": 1.5,
-          "fourmula": {
-            "numerator": ["current assets"],
-            "denominator": ["current liabilities"]
-          },
-          "current assets": 1.5,
-          "current liabilities": 1.0
-        },
-        "quick ratio": {
-          "value": 1.0,
-          "fourmula": {
-            "numerator": ["current assets x inventory"],
-            "denominator": ["current liabilities"]
-          },
-          "current assets": 1.5,
-          "inventory": -0.5,
-          "current liabilities": 1.0
-        },
-        "cash ratio": {
-          "value": 0.5,
-          "fourmula": {
-            "numerator": ["cash", "inventory", "Accounts receivable"],
-            "denominator": ["current liabilities"]
-          },
-          "cash": 0.5,
-          "inventory": -0.0,
-          "Accounts receivable": 0.0,
-          "current liabilities": 1.0
-        }
+      "value": 1.5,
+      "current assets": 1.5,
+      "current liabilities": 1.0,
+      "numbers": "1.5 / 1.0"
+    },
+    "2024": {
+      "value": 1.5,
+      "current assets": 1.5,
+      "current liabilities": 1.0,
+      "numbers": "1.5 / 1.0"
+    }
+  },
+  "general compare": {
+    "2023": {
+      "current ratio": {
+        "value": 1.5
+      },
+      "quick ratio": {
+        "value": 1.0
+      },
+      "cash ratio": {
+        "value": 0.5
       }
     },
     "2024": {
-      "leq ratios": {
-        "current ratio": {
-          "value": 1.5,
-          "fourmula": {
-            "numerator": ["current assets"],
-            "denominator": ["current liabilities"]
-          },
-          "current assets": 1.5,
-          "current liabilities": 1.0
-        },
-        "quick ratio": {
-          "value": 1.0,
-          "fourmula": {
-            "numerator": ["current assets x inventory"],
-            "denominator": ["current liabilities"]
-          },
-          "current assets": 1.5,
-          "inventory": -0.5,
-          "current liabilities": 1.0
-        },
-        "cash ratio": {
-          "value": 0.5,
-          "fourmula": {
-            "numerator": ["cash", "inventory", "Accounts receivable"],
-            "denominator": ["current liabilities"]
-          },
-          "cash": 0.5,
-          "inventory": -0.0,
-          "Accounts receivable": 0.0,
-          "current liabilities": 1.0
-        }
+      "current ratio": {
+        "value": 1.5
+      },
+      "quick ratio": {
+        "value": 1.0
+      },
+      "cash ratio": {
+        "value": 0.5
       }
     }
   }
