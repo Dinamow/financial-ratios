@@ -1,0 +1,147 @@
+{
+  "first_rep": {
+    "Dates": ["2021", "2022", "2023"],
+    "totall Assets": 3.2,
+    "total Liabilities": 1.2
+  },
+  "sec resp": {
+    "2023": {
+      "current ratio": {
+        "valWue": 1.5,
+        "fourmula": {
+          "numerator": ["current assets"],
+          "denominator": ["current liabilities"]
+        },
+        "current assets": 1.5,
+        "current liabilities": 1.0
+      },
+      "quick ratio": {
+        "value": 1.0,
+        "fourmula": {
+          "numerator": ["current assets", "inventory"],
+          "denominator": ["current liabilities"]
+        },
+        "current assets": 1.5,
+        "inventory": -0.5,
+        "current liabilities": 1.0
+      },
+      "cash ratio": {
+        "value": 0.5,
+        "fourmula": {
+          "numerator": ["cash", "inventory", "Accounts receivable"],
+          "denominator": ["current liabilities"]
+        },
+        "cash": 0.5,
+        "inventory": -0.0,
+        "Accounts receivable": 0.0,
+        "current liabilities": 1.0
+      }
+    }
+  },
+  "third res": {
+    "2023": {
+      "leq ratios": {
+        "current ratio": {
+          "value": 1.5,
+          "fourmula": {
+            "numerator": ["current assets"],
+            "denominator": ["current liabilities"]
+          },
+          "current assets": 1.5,
+          "current liabilities": 1.0
+        },
+        "quick ratio": {
+          "value": 1.0,
+          "fourmula": {
+            "numerator": ["current assets x inventory"],
+            "denominator": ["current liabilities"]
+          },
+          "current assets": 1.5,
+          "inventory": -0.5,
+          "current liabilities": 1.0
+        },
+        "cash ratio": {
+          "value": 0.5,
+          "fourmula": {
+            "numerator": ["cash", "inventory", "Accounts receivable"],
+            "denominator": ["current liabilities"]
+          },
+          "cash": 0.5,
+          "inventory": -0.0,
+          "Accounts receivable": 0.0,
+          "current liabilities": 1.0
+        }
+      }
+    }
+  },
+  "fourth answer": {
+    "2023": {
+      "leq ratios": {
+        "current ratio": {
+          "value": 1.5,
+          "fourmula": {
+            "numerator": ["current assets"],
+            "denominator": ["current liabilities"]
+          },
+          "current assets": 1.5,
+          "current liabilities": 1.0
+        },
+        "quick ratio": {
+          "value": 1.0,
+          "fourmula": {
+            "numerator": ["current assets x inventory"],
+            "denominator": ["current liabilities"]
+          },
+          "current assets": 1.5,
+          "inventory": -0.5,
+          "current liabilities": 1.0
+        },
+        "cash ratio": {
+          "value": 0.5,
+          "fourmula": {
+            "numerator": ["cash", "inventory", "Accounts receivable"],
+            "denominator": ["current liabilities"]
+          },
+          "cash": 0.5,
+          "inventory": -0.0,
+          "Accounts receivable": 0.0,
+          "current liabilities": 1.0
+        }
+      }
+    },
+    "2024": {
+      "leq ratios": {
+        "current ratio": {
+          "value": 1.5,
+          "fourmula": {
+            "numerator": ["current assets"],
+            "denominator": ["current liabilities"]
+          },
+          "current assets": 1.5,
+          "current liabilities": 1.0
+        },
+        "quick ratio": {
+          "value": 1.0,
+          "fourmula": {
+            "numerator": ["current assets x inventory"],
+            "denominator": ["current liabilities"]
+          },
+          "current assets": 1.5,
+          "inventory": -0.5,
+          "current liabilities": 1.0
+        },
+        "cash ratio": {
+          "value": 0.5,
+          "fourmula": {
+            "numerator": ["cash", "inventory", "Accounts receivable"],
+            "denominator": ["current liabilities"]
+          },
+          "cash": 0.5,
+          "inventory": -0.0,
+          "Accounts receivable": 0.0,
+          "current liabilities": 1.0
+        }
+      }
+    }
+  }
+}
