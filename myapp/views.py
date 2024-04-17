@@ -22,12 +22,15 @@ def balance(request):
             {'error': 'GET request required'},
             status=400)
 
-    years = request.GET.get('years')
-    years = years.split(',')
-    if len(years) != 2:
-        return 
+    years = request.GET.get('years').split(',')
     ratio = request.GET.get('ratio')
-
+    type = request.GET.get('type')
+    if ratio:
+        return JsonResponse(ENGINE.get_ratio(ratio),
+                            status=200)
+    if type:
+        return JsonResponse(ENGINE.get_type(type, years),
+                            status=200)
     return JsonResponse(
-        {'result': years},
-        status=200)
+        {'error': 'Invalid request'},
+        status=400)
