@@ -52,7 +52,8 @@
                 "Total Liabilities & Shareholders' Equity": 6686.41,
                 "Total Common Shares Outstanding": 1291.5,
                 "Total Preferred Shares Outstanding": null,
-                "total debt": 11.12
+                "Fixed Assets": 2000,
+                "Total Debt": 11.12
             },
             "2022": {
                 "Period Ending": "30/06",
@@ -80,6 +81,7 @@
                 "Accounts Payable": 10.53,
                 "Payable/Accrued": null,
                 "Accrued Expenses": 151.76,
+                "Fixed Assets": 2000,
                 "Notes Payable/Short Term Debt": null,
                 "Current Port. of LT Debt/Capital Leases": 0.25,
                 "Other Current liabilities, Total": 1389.07,
@@ -107,7 +109,9 @@
         },
         "Income Statements": {
             "2023": {
+                "Sales": 24208.34,
                 "Period Ending": "30/06",
+                "EBIT": 2000,
                 "Total Revenue": 24208.34,
                 "Revenue": 24208.34,
                 "Other Revenue, Total": null,
@@ -124,6 +128,7 @@
                 "Interest Income (Expense), Net Non-Operating": null,
                 "Gain (Loss) on Sale of Assets": 0.208,
                 "Other, Net": -263.52,
+                "Dividans Ratio": 0.05,
                 "Net Income Before Taxes": 1787.14,
                 "Provision for Income Taxes": 415.1,
                 "Net Income After Taxes": 1372.05,
@@ -140,15 +145,25 @@
                 "Diluted Weighted Average Shares": 1291.5,
                 "Diluted EPS Excluding Extraordinary Items": 0.922,
                 "DPS - Common Stock Primary Issue": 0.65,
-                "Diluted Normalized EPS": 0.827
+                "Diluted Normalized EPS": 0.827,
+                "Number of Shares": 1291.5,
+                "Interest Expense" : 2000,
+                "Tax Rate": 2000,
+                "EBITDA": 2000,
+                "Market Price": 8.1
             },
             "2022": {
+                "Sales": 18441.86,
                 "Period Ending": "30/06",
+                "Tax Rate": 2000,
                 "Total Revenue": 18441.86,
+                "EBIT": 2000,
+                "Interest Expense" : 2000,
                 "Revenue": 18441.86,
                 "Other Revenue, Total": null,
                 "Cost of Revenue, Total": 15889.54,
                 "Gross Profit": 2552.31,
+                "EBITDA": 2000,
                 "Total Operating Expenses": 16764.65,
                 "Selling/General/Admin. Expenses, Total": 466.36,
                 "Research & Development": null,
@@ -160,6 +175,7 @@
                 "Interest Income (Expense), Net Non-Operating": null,
                 "Gain (Loss) on Sale of Assets": 0.761,
                 "Other, Net": -128.92,
+                "Dividans Ratio": 0.1,
                 "Net Income Before Taxes": 1191.01,
                 "Provision for Income Taxes": -26.57,
                 "Net Income After Taxes": 1217.58,
@@ -176,7 +192,9 @@
                 "Diluted Weighted Average Shares": 1291.5,
                 "Diluted EPS Excluding Extraordinary Items": 0.826,
                 "DPS - Common Stock Primary Issue": 0.25,
-                "Diluted Normalized EPS": 0.557
+                "Diluted Normalized EPS": 0.557,
+                "Number of Shares": 1291.5,
+                "Market Price": 8.1
             }
         },
         "Cash Flow Statements": {
