@@ -26,7 +26,7 @@ def balance(request):
     ratio = request.GET.get('ratio')
     type = request.GET.get('type')
     if ratio:
-        return JsonResponse(ENGINE.get_ratio(ratio),
+        return JsonResponse(ENGINE.get_ratio(ratio, years),
                             status=200)
     if type:
         return JsonResponse(ENGINE.get_type(type, years),
