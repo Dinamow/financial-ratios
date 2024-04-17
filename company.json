@@ -51,7 +51,8 @@
                 "Other Equity, Total": 46.41,
                 "Total Liabilities & Shareholders' Equity": 6686.41,
                 "Total Common Shares Outstanding": 1291.5,
-                "Total Preferred Shares Outstanding": null
+                "Total Preferred Shares Outstanding": null,
+                "total debt": 11.12
             },
             "2022": {
                 "Period Ending": "30/06",
