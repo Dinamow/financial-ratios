@@ -36,7 +36,7 @@ class Lequidity():
     def get_quick_ratio_fourmula(self):
         """return quick ratio formula"""
         numbers = f"({self._cash}"
-        numbers += f" + {self._inventory}) / {self._totall_current_liabilty}"
+        numbers += f" + {self._account_recivables}) / {self._totall_current_liabilty}"
         return {
             "formula": {
                 "rule": "cash + AR / CL",
