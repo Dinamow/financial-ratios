@@ -25,12 +25,15 @@ def balance(request):
     years = request.GET.get('years').split(',')
     ratio = request.GET.get('ratio')
     type = request.GET.get('type')
+
     if ratio:
         return JsonResponse(ENGINE.get_ratio(ratio, years),
                             status=200)
+
     if type:
         return JsonResponse(ENGINE.get_type(type, years),
                             status=200)
+
     return JsonResponse(
         {'error': 'Invalid request'},
         status=400)
