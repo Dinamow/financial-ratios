@@ -27,60 +27,59 @@ class Company(models.Model):
 
 class Ratios(models.Model):
     db_table = 'ratios'
-    number_of_shares = models.FloatField(verbose_name="Number of Shares",
-                                         default=0.0)
-    market_price = models.FloatField(verbose_name="Market Price",
-                                     default=0.0)
-    net_income = models.FloatField(verbose_name="Net Income",
-                                   default=0.0)
-    sales = models.FloatField(verbose_name="Sales",
-                              default=0.0)
-    total_assets = models.FloatField(verbose_name="Total Assets",
-                                     default=0.0)
-    total_equity = models.FloatField(verbose_name="Total Equity",
-                                     default=0.0)
-    ebit = models.FloatField(verbose_name="EBIT",
-                             default=0.0)
-    intrest = models.FloatField(verbose_name="Interest Expense",
-                                default=0.0)
-    tax_rate = models.FloatField(verbose_name="Tax Rate",
-                                 default=0.0)
-    dividans = models.FloatField(verbose_name="Dividans",
-                                 default=0.0)
-    total_fixed_assets = models.FloatField(verbose_name="Fixed Assets",
-                                           default=0.0)
-    total_current_assets = models.FloatField(verbose_name="Total Current Assets",
-                                             default=0.0)
-    cogs = models.FloatField(verbose_name="Cost of Revenue, Total",
-                             default=0.0)
-    inventory = models.FloatField(verbose_name="Total Inventory",
-                                  default=0.0)
-    account_recivables = models.FloatField(verbose_name="Total Receivables, Net",
-                                           default=0.0)
-    account_payable = models.FloatField(verbose_name="Accounts Payable",
-                                        default=0.0)
-    cash = models.FloatField(verbose_name="Cash & Equivalents",
-                             default=0.0)
-    total_current_liabilty = models.FloatField(verbose_name="Total Current Liabilities",
-                                               default=0.0)
-    total_debt = models.FloatField(verbose_name="Total Debt",
-                                   default=0.0)
-    ebitida = models.FloatField(verbose_name="EBITDA",
-                                default=0.0)
-    dividansRatio = models.FloatField(verbose_name="Dividans Ratio",
-                                      default=models.F('dividans') / models.F('net_income'),
+    number_of_shares = models.FloatField(verbose_name="Number of Shares", default=0.0)
+    market_price = models.FloatField(verbose_name="Market Price", default=0.0)
+    net_income = models.FloatField(verbose_name="Net Income", default=0.0)
+    sales = models.FloatField(verbose_name="Sales", default=0.0)
+    total_assets = models.FloatField(verbose_name="Total Assets", default=0.0)
+    total_equity = models.FloatField(verbose_name="Total Equity", default=0.0)
+    ebit = models.FloatField(verbose_name="EBIT", default=0.0)
+    interest = models.FloatField(verbose_name="Interest Expense", default=0.0)
+    tax_rate = models.FloatField(verbose_name="Tax Rate", default=0.0)
+    dividends = models.FloatField(verbose_name="Dividends", default=0.0)
+    total_fixed_assets = models.FloatField(verbose_name="Fixed Assets", default=0.0)
+    total_current_assets = models.FloatField(verbose_name="Total Current Assets", default=0.0)
+    cogs = models.FloatField(verbose_name="Cost of Revenue, Total", default=0.0)
+    inventory = models.FloatField(verbose_name="Total Inventory", default=0.0)
+    account_receivables = models.FloatField(verbose_name="Total Receivables, Net", default=0.0)
+    account_payable = models.FloatField(verbose_name="Accounts Payable", default=0.0)
+    cash = models.FloatField(verbose_name="Cash & Equivalents", default=0.0)
+    total_current_liability = models.FloatField(verbose_name="Total Current Liabilities", default=0.0)
+    total_debt = models.FloatField(verbose_name="Total Debt", default=0.0)
+    ebitda = models.FloatField(verbose_name="EBITDA", default=0.0)
+    dividansRatio = models.FloatField(verbose_name="Dividans Ratio", default=0.0,
                                       editable=False)
-    book_value = models.FloatField(verbose_name="Book Value",
-                                   default=models.F('equity') / models.F('number_of_shares'),
+    book_value = models.FloatField(verbose_name="Book Value", default=0.0,
                                    editable=False)
-    eps = models.FloatField(verbose_name="EPS",
-                            default=models.F('net_income') / models.F('number_of_shares'),
+    eps = models.FloatField(verbose_name="EPS", default=0.0,
                             editable=False)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     date = models.ForeignKey(Dates, on_delete=models.CASCADE)
 
+    def save(self, *args, **kwargs):
+        # Calculate dividansRatio
+        if self.net_income != 0:
+            self.dividansRatio = self.dividends / self.net_income
+        else:
+            self.dividansRatio = 0.0
+        
+        # Calculate book_value
+        if self.number_of_shares != 0:
+            self.book_value = self.total_equity / self.number_of_shares
+        else:
+            self.book_value = 0.0
+        
+        # Calculate eps
+        if self.number_of_shares != 0:
+            self.eps = self.net_income / self.number_of_shares
+        else:
+            self.eps = 0.0
+        
+        super().save(*args, **kwargs)
+    
     def __str__(self) -> str:
-        return self.company.name + " " + self.date.date
+        return self.company.name + ' - ' + self.date.date
+
 
 
 class Lequidity():
