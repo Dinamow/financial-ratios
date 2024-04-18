@@ -2,10 +2,10 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+.vscode/
 # C extensions
 *.so
-
+ratios conn.session.sql
 # Distribution / packaging
 .Python
 build/
