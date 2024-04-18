@@ -104,7 +104,8 @@
                 "Other Equity, Total": 26.13,
                 "Total Liabilities & Shareholders' Equity": 4921.19,
                 "Total Common Shares Outstanding": 1291.5,
-                "Total Preferred Shares Outstanding": null
+                "Total Preferred Shares Outstanding": null,
+                "Total Debt": 11.12
             }
         },
         "Income Statements": {
@@ -128,7 +129,7 @@
                 "Interest Income (Expense), Net Non-Operating": null,
                 "Gain (Loss) on Sale of Assets": 0.208,
                 "Other, Net": -263.52,
-                "Dividans Ratio": 0.05,
+                "Dividends Ratio": 0.05,
                 "Net Income Before Taxes": 1787.14,
                 "Provision for Income Taxes": 415.1,
                 "Net Income After Taxes": 1372.05,
@@ -175,7 +176,7 @@
                 "Interest Income (Expense), Net Non-Operating": null,
                 "Gain (Loss) on Sale of Assets": 0.761,
                 "Other, Net": -128.92,
-                "Dividans Ratio": 0.1,
+                "Dividends Ratio": 0.1,
                 "Net Income Before Taxes": 1191.01,
                 "Provision for Income Taxes": -26.57,
                 "Net Income After Taxes": 1217.58,
