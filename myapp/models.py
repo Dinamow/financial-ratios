@@ -450,7 +450,7 @@ class Engine(Liquidity, AssetsTO, Profitability, MarketValue):
     def get_ratio(self, ratio, years):
         """return ratio"""
         return {year: self.get_date_ratios(year)[ratio] for year in years}
-    
+
     def get_type(self, type, years):
         """return type"""
         if type.lower() in ['liquidity', 'liquidity ratios', 'liquidity_ratios', 'liquidityratios']:
@@ -465,3 +465,7 @@ class Engine(Liquidity, AssetsTO, Profitability, MarketValue):
             ratios = ['EPS', 'PE Ratio', 'MB Ratio', 'Fair Value of Stock']
 
         return {year: {ratio: self.get_date_ratios(year)[ratio] for ratio in ratios} for year in years}
+
+    def get_statements(self, years, statements):
+        """return statements"""
+        return {year: {statement: self._data['Financial Statements'][statement][year] for statement in statements} for year in years}

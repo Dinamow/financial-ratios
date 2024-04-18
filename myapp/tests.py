@@ -183,3 +183,10 @@ class MyTests(TestCase):
         type = 'Liquidity'
         sample = self.engine.get_type(type, years)
         # print(sample)
+
+    def test_get_statements(self):
+        """test the balance view"""
+        years = ['2023', '2022']
+        statements = ['Balance Sheets', 'Income Statements']
+        sample = self.engine.get_statements(years, statements)
+        # print(sample)
