@@ -122,10 +122,10 @@ class MyTests(TestCase):
         ca = self.engine.get_return_on_equity_value()
         self.assertNotEqual(ca, 0.0)
     
-    def test_get_roi_value(self):
+    def test_get_return_on_investment_value(self):
         """test the balance view"""
         self.engine.date('2023')
-        ca = self.engine.get_roi_value()
+        ca = self.engine.get_return_on_investment_value()
         self.assertNotEqual(ca, 0.0)
     
     def test_get_return_trade_on_equity_value(self):
@@ -134,10 +134,10 @@ class MyTests(TestCase):
         ca = self.engine.get_return_trade_on_equity_value()
         self.assertNotEqual(ca, 0.0)
     
-    def test_get_ROE_using_EOV_value(self):
+    def test_return_trade_on_equity_using_EVA_value(self):
         """test the balance view"""
         self.engine.date('2023')
-        ca = self.engine.get_ROE_using_EOV_value()
+        ca = self.engine.get_return_trade_on_equity_using_EVA_value()
         self.assertNotEqual(ca, 0.0)
     
     def test_get_internal_growth_rate_value(self):
@@ -170,3 +170,16 @@ class MyTests(TestCase):
         ca = self.engine.get_fair_value_of_stock_value()
         self.assertNotEqual(ca, 0.0)
 
+    def test_get_ratio(self):
+        """test the balance view"""
+        years = ['2023', '2022']
+        ratio = 'Current Ratio'
+        sample = self.engine.get_ratio(ratio, years)
+        # print(sample)
+
+    def test_get_type(self):
+        """test the balance view"""
+        years = ['2023', '2022']
+        type = 'Liquidity'
+        sample = self.engine.get_type(type, years)
+        # print(sample)

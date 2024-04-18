@@ -1,8 +1,8 @@
 {
   "first_rep": {
     "Dates": ["2021", "2022", "2023"],
-    "componotes": ["Total liabilty", "Total assets"],
-    "Total liabilty": 1.0,
+    "componotes": ["Total liability", "Total assets"],
+    "Total liability": 1.0,
     "Total assets": 1.5
   },
   "sec resp": {
@@ -10,20 +10,20 @@
       {
         "type": "current ratio",
         "value": 1.5,
-        "fourmula": "current assets / current liabilities",
+        "formula": "current assets / current liabilities",
         "number": "1.5 / 1.0"
       },
       {
         "type": "quick ratio",
         "value": 1.0,
-        "fourmula": "current assets - INV / current liabilities",
+        "formula": "current assets - INV / current liabilities",
         "number": "1.5 / 1.0"
       }
     ]
   },
   "one compare": {
     "ratio": "current ratio",
-    "fourmula": "current assets / current liabilities",
+    "formula": "current assets / current liabilities",
     "componotes": ["current assets", "current liabilities"],
     "2023": {
       "value": 1.5,
