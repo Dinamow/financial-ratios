@@ -14,20 +14,20 @@
       {
         "type": "current ratio",
         "value": 1.5,
-        "fourmula": "current assets / current liabilities",
+        "formula": "current assets / current liabilities",
         "number": "1.5 / 1.0"
       },
       {
         "type": "quick ratio",
         "value": 1.0,
-        "fourmula": "current assets - INV / current liabilities",
+        "formula": "current assets - INV / current liabilities",
         "number": "1.5 / 1.0"
       }
     ]
   },
   "one compare": {
     "ratio": "current ratio",
-    "fourmula": "current assets / current liabilities",
+    "formula": "current assets / current liabilities",
     "componotes": ["current assets", "current liabilities"],
     "2023": {
       "value": 1.5,
