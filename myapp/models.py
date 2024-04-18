@@ -432,53 +432,42 @@ class Engine(Lequidity, AssetsTO, Profitability, MarketValue):
 
     def get_dates(self):
         """return dates"""
-        return list(self._data['Financial Statements']['Balance Sheets'])
+        companies = Company.objects.all()
+        data = []
 
-    def date(self, year):
-        self._number_of_shares = self._data['Financial Statements'][
-            'Income Statements'][year]['Number of Shares']
-        self._market_price = self._data['Financial Statements'][
-            'Income Statements'][year]['Market Price']
-        self._net_income = self._data['Financial Statements'][
-            'Income Statements'][year]['Net Income']
-        self._sales = self._data['Financial Statements'][
-            'Income Statements'][year]['Sales']
-        self._total_assets = self._data['Financial Statements'][
-            'Balance Sheets'][year]['Total Assets']
-        self._total_equity = self._data['Financial Statements'][
-            'Balance Sheets'][year]['Total Equity']
-        self._ebit = self._data['Financial Statements'][
-            'Income Statements'][year]['EBIT']
-        self._interest = self._data['Financial Statements'][
-            'Income Statements'][year]['Interest Expense']
-        self._tax_rate = self._data['Financial Statements'][
-            'Income Statements'][year]['Tax Rate']
-        self._dividendsRatio = self._data['Financial Statements'][
-            'Income Statements'][year]['Dividends Ratio']
-        self._total_fixed_assets = self._data['Financial Statements'][
-            'Balance Sheets'][year]['Fixed Assets']
-        self._total_current_assets = self._data['Financial Statements'][
-            'Balance Sheets'][year]['Total Current Assets']
-        self._cogs = self._data['Financial Statements'][
-            'Income Statements'][year]['Cost of Revenue, Total']
-        self._inventory = self._data['Financial Statements'][
-            'Balance Sheets'][year]['Total Inventory']
-        self._account_receivables = self._data['Financial Statements'][
-            'Balance Sheets'][year]['Total Receivables, Net']
-        self._account_payable = self._data['Financial Statements'][
-            'Balance Sheets'][year]['Accounts Payable']
-        self._cash = self._data['Financial Statements'][
-            'Balance Sheets'][year]['Cash & Equivalents']
-        self._total_current_liability = self._data['Financial Statements'][
-            'Balance Sheets'][year]['Total Current Liabilities']
-        self._total_debt = self._data['Financial Statements'][
-            'Balance Sheets'][year]['Total Debt']
-        self._total_assets = self._data['Financial Statements'][
-            'Balance Sheets'][year]['Total Assets']
-        self._EBIT = self._data['Financial Statements'][
-            'Income Statements'][year]['EBIT']
-        self._ebitda = self._data['Financial Statements'][
-            'Income Statements'][year]['EBITDA']
+        for company in companies:
+            company_data = {
+                'company': company.name,
+                'Dates': list(Ratios.objects.filter(company=company).values_list('date__date', flat=True).distinct())
+            }
+            data.append(company_data)
+        return data
+
+    def date(self, year, company):
+        year = Dates.objects.get(date=year).id
+        company_id = Company.objects.get(name=company).id
+        self._number_of_shares = Ratios.objects.get(date=year, company_id=company_id).number_of_shares
+        self._market_price = Ratios.objects.get(date=year, company_id=company_id).market_price
+        self._net_income = Ratios.objects.get(date=year, company_id=company_id).net_income
+        self._sales = Ratios.objects.get(date=year, company_id=company_id).sales
+        self._total_assets = Ratios.objects.get(date=year, company_id=company_id).total_assets
+        self._total_equity = Ratios.objects.get(date=year, company_id=company_id).total_equity
+        self._ebit = Ratios.objects.get(date=year, company_id=company_id).ebit
+        self._interest = Ratios.objects.get(date=year, company_id=company_id).interest
+        self._tax_rate = Ratios.objects.get(date=year, company_id=company_id).tax_rate
+        self._dividendsRatio = Ratios.objects.get(date=year, company_id=company_id).dividansRatio
+        self._total_fixed_assets = Ratios.objects.get(date=year, company_id=company_id).total_fixed_assets
+        self._total_current_assets = Ratios.objects.get(date=year, company_id=company_id).total_current_assets
+        self._cogs = Ratios.objects.get(date=year, company_id=company_id).cogs
+        self._inventory = Ratios.objects.get(date=year, company_id=company_id).inventory
+        self._account_receivables = Ratios.objects.get(date=year, company_id=company_id).account_receivables
+        self._account_payable = Ratios.objects.get(date=year, company_id=company_id).account_payable
+        self._cash = Ratios.objects.get(date=year, company_id=company_id).cash
+        self._total_current_liability = Ratios.objects.get(date=year, company_id=company_id).total_current_liability
+        self._total_debt = Ratios.objects.get(date=year, company_id=company_id).total_debt
+        self._total_assets = Ratios.objects.get(date=year, company_id=company_id).total_assets
+        self._EBIT = Ratios.objects.get(date=year, company_id=company_id).ebit
+        self._ebitda = Ratios.objects.get(date=year, company_id=company_id).ebitda
         self._book_value = self._total_equity / self._number_of_shares
         self._eps = self._net_income / self._number_of_shares
 
