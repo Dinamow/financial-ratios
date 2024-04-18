@@ -1,10 +1,14 @@
 {
-  "first_rep": {
-    "Dates": ["2021", "2022", "2023"],
-    "componotes": ["Total liabilty", "Total assets"],
-    "Total liabilty": 1.0,
-    "Total assets": 1.5
-  },
+  "first_rep": [
+    {
+      "company": "company 1",
+      "Dates": ["2023", "2024"]
+    },
+    {
+      "company": "company 2",
+      "Dates": ["2023", "2024"]
+    }
+  ],
   "sec resp": {
     "2023": [
       {
