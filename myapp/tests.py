@@ -190,3 +190,17 @@ class MyTests(TestCase):
         statements = ['Balance Sheets', 'Income Statements']
         sample = self.engine.get_statements(years, statements)
         # print(sample)
+
+    def test_get_ratio(self):
+        """test the balance view"""
+        years = ['2023', '2022']
+        ratio = 'Current Ratio'
+        sample = self.engine.get_ratio(ratio, years)
+        # print(sample)
+
+    def test_get_ratios(self):
+        """test the balance view"""
+        years = ['2023', '2022']
+        ratios = ['Current Ratio', 'Cash Ratio']
+        sample = self.engine.get_ratios(ratios, years)
+        # print(sample)

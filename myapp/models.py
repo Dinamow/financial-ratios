@@ -1,6 +1,7 @@
 from django.db import models
 import json
 import math
+import re
 
 
 # Create your models here.
@@ -447,9 +448,33 @@ class Engine(Liquidity, AssetsTO, Profitability, MarketValue):
             "Fair Value of Stock": {'value': self.get_fair_value_of_stock_value()['value'], 'formula': self.get_fair_value_of_stock_formula()['formula']}
     }
 
+    def get_components(self, formula):
+        components = re.findall(r'\b\w+\b', str(formula))
+        return components
+
+    def get_components_values(self, numbers):
+        components_values = re.findall(r'\d+\.\d+|\d+', str(numbers))
+        return components_values
+
     def get_ratio(self, ratio, years):
         """return ratio"""
-        return {year: self.get_date_ratios(year)[ratio] for year in years}
+        formula = self.get_date_ratios(years[0])[ratio]['formula']
+        components = self.get_components(formula['rule'])
+        components_values = self.get_components_values(formula['numbers'])
+        components_with_values = dict(zip(components, components_values))
+
+        ratio_info = {
+            'ratio': ratio,
+            'formula': formula['rule'],
+            'components': components,
+        }
+        for year in years:
+            ratio_info[year] = {
+            'value': self.get_date_ratios(year)[ratio]['value'],
+            'components': components_with_values,
+            'numbers': formula['numbers'],
+            }
+        return ratio_info
 
     def get_type(self, type, years):
         """return type"""
@@ -469,3 +494,13 @@ class Engine(Liquidity, AssetsTO, Profitability, MarketValue):
     def get_statements(self, years, statements):
         """return statements"""
         return {year: {statement: self._data['Financial Statements'][statement][year] for statement in statements} for year in years}
+
+    def get_ratios(self, ratios, years):
+        """return ratios"""
+        ratios_info = {
+            'ratios': ratios,
+        }
+        for year in years:
+            ratios_info[year] = {ratio: self.get_date_ratios(year)[ratio]['value'] for ratio in ratios}
+
+        return ratios_info
