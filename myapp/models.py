@@ -303,7 +303,7 @@ class Profitability(Leveraging):
         return {
             "formula": {
                 "rule": "ROE * (1 - DR)",
-                "numbers": f"{self.get_internal_growth_rate_value()['value']} * {self.get_return_on_equity_value()['value']}"}}
+                "numbers": f"{self.get_return_on_assets_value()['value']} * (1 - {self._dividendsRatio})"}}
 
 class MarketValue():
 
