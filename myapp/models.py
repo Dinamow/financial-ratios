@@ -509,6 +509,7 @@ class Engine(Lequidity, AssetsTO, Profitability, MarketValue):
         }
 
     def get_components(self, formula):
+        str(formula).replace("sqrt", "")
         components = re.findall(r'\b\w+\b', str(formula))
         return components
 
