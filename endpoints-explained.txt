@@ -1,0 +1,100 @@
+Endpoints:
+
+1- /api/v1/dates
+
+params:
+    None
+returns:
+    A list of available companies with their dates
+response example:
+[
+    {
+      "company": "company 1",
+      "dates": ["2023", "2022"]
+    },
+    {
+      "company": "company 2",
+      "dates": ["2023", "2022"]
+    }
+]
+
+=============================
+
+2- /api/v1/balance
+
+params:
+    years*
+    company* (Will be static)
+    type
+    ratio
+    
+    Either use type to retrieve all ratios in the type ex. Liquidity -> ["Current Ratio", "Quick Ratio", "Cash Ratio"]
+    or use ratio to retrieve a single ratio ex. Current Ratio
+returns:
+    Selected ratio or type
+response examples:
+
+if type is selected: -> Returns all the ratios from this type, ex. "Liquidity" will output the following
+
+    "2023": [
+        {
+            "type": "current ratio",
+            "value": 1.5,
+            "formula": "current assets / current liabilities",
+            "numbers": "1.5 / 1.0"
+        },
+        {
+            "type": "quick ratio",
+            "value": 1.0,
+            "formula": "current assets - INV / current liabilities",
+            "numbers": "1.5 - 1.5 / 1.0"
+        },
+        {
+            "type": "cash ratio",
+            "value": 1.0,
+            "formula": "current assets - INV - AR / current liabilities",
+            "numbers": "1.5 - 1.5 - 1.5 / 1.0"
+        }
+    ],
+    "2022": [
+        {
+            "type": "current ratio",
+            "value": 1.5,
+            "formula": "current assets / current liabilities",
+            "numbers": "1.5 / 1.0"
+        },
+        {
+            "type": "quick ratio",
+            "value": 1.0,
+            "formula": "current assets - INV / current liabilities",
+            "numbers": "1.5 / 1.0"
+        }
+        {
+            "type": "cash ratio",
+            "value": 1.0,
+            "formula": "current assets - INV - AR / current liabilities",
+            "numbers": "1.5 - 1.5 - 1.5 / 1.0"
+        }
+    ]
+
+if ratio is selected: -> Returns the ratio with its formula and numbers, ex. "Current Ratio" will output the following
+
+    "ratio": "current ratio",
+    "formula": "current assets / current liabilities",
+    "components": ["current assets", "current liabilities"],
+    "2023": {
+        "value": 1.5,
+        "components": {
+            "current assets": 1.5,
+            "current liabilities": 1.0,
+        }
+        "numbers": "1.5 / 1.0"
+    },
+    "2022": {
+        "value": 1.5,
+        "components": {
+            "current assets": 1.5,
+            "current liabilities": 1.0,
+        }
+        "numbers": "1.5 / 1.0"
+    }

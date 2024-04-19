@@ -545,16 +545,40 @@ class Engine(Lequidity, AssetsTO, Profitability, MarketValue):
         """return type"""
         if type.lower() in ['liquidity', 'liquidity ratios', 'liquidity_ratios', 'liquidityratios']:
             ratios = ['Current Ratio', 'Quick Ratio', 'Cash Ratio']
+
         elif type.lower() in ['leverage', 'leverage ratios', 'leverageratios', 'leverage_ratios']:
             ratios = ['Debt Ratio', 'Debt Equity Ratio', 'Equity Multiplier', 'Times Interest Earned', 'EBITDA Coverage']
+
         elif type.lower() in ['assets turnover', 'assets_turnover', 'assetsturnover', 'assets', 'asset ratios', 'asset_ratios', 'assetratios']:
             ratios = ['Total Assets Turnover', 'Fixed Assets Turnover', 'Current Assets Turnover', 'Inventory Turnover', 'Days Sales in Inventory', 'Receivables Turnover', 'Days Sales in Receivables', 'Collection Period', 'Payables Turnover', 'Paid Period']
+
         elif type.lower() == 'profitability':
             ratios = ['Net Profit Margin', 'Return on Assets', 'Return on Equity', 'Return on Investment', 'Return Trade on Equity', 'Return Trade on Equity using EVA', 'Internal Growth Rate', 'Substantial Growth Rate']
+
         elif type.lower() in ['market value', 'market_value', 'marketvalue', 'market', 'market ratios', 'marketratios', 'market_ratios']:
             ratios = ['EPS', 'PE Ratio', 'MB Ratio', 'Fair Value of Stock']
 
-        return {year: {ratio: self.get_date_ratios(year, company)[ratio] for ratio in ratios} for year in years}
+        type_ratios = {}
+        if len(years) == 1:
+            year = years[0]
+            type_ratios[year] = []
+            for ratio in ratios:
+                ratio_info = {
+                    'type': ratio,
+                    'value': self.get_date_ratios(year, company)[ratio]['value'],
+                    'formula': self.get_date_ratios(year, company)[ratio]['formula']['rule'],
+                    'numbers': self.get_date_ratios(year, company)[ratio]['formula']['numbers']
+                }
+                type_ratios[year].append(ratio_info)
+        else:
+            type_ratios = {
+                'ratios': ratios,
+            }
+            for year in years:
+                type_ratios[year] = {
+                    ratio: self.get_date_ratios(year, company)[ratio]['value'] for ratio in ratios
+                }
+        return type_ratios
 
     # def get_statements(self, years, statements):
     #     """return statements"""
