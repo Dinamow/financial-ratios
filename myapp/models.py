@@ -424,11 +424,6 @@ class MarketValue():
 
 class Engine(Lequidity, AssetsTO, Profitability, MarketValue):
     """engine class"""
-    _data = None
-
-    def __init__(self) -> None:
-        super().__init__()
-        self._data = json.load(open('company.json'))
 
     def get_dates(self):
         """return dates"""
