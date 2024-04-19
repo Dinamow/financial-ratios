@@ -1,8 +1,7 @@
 from django.db import models
-import json
 from math import sqrt
 import re
-import time
+
 
 # Create your models here.
 class Dates(models.Model):
@@ -252,11 +251,11 @@ class AssetsTO():
                 "rule": "Sales / AR",
                 "numbers": f"{self._sales} / {self._account_receivables}"}}
 
-    def get_days_sales_in_receivables_value(self):
+    def get_days_sales_outstanding_value(self):
         """return days sales in receivables value"""
         return {"value": round(self._account_receivables / self._sales * 365, 2)}
 
-    def get_days_sales_in_receivables_formula(self):
+    def get_days_sales_outstanding_formula(self):
         """return days sales in receivables formula"""
         numbers = f"{self._account_receivables} / {self._sales} * 365"
         return {
@@ -274,6 +273,17 @@ class AssetsTO():
             "formula": {
                 "rule": "COGS / AP",
                 "numbers": f"{self._cogs} / {self._account_payable}"}}
+    
+    def get_paid_period_value(self):
+        """return paid period value"""
+        return {"value": round(self._account_payable / self._cogs * 365, 2)}
+    
+    def get_paid_period_formula(self):
+        """return paid period formula"""
+        return {
+            "formula": {
+                "rule": "AP / COGS * 365",
+                "numbers": f"{self._account_payable} / {self._cogs} * 365"}}
 
 
 class Profitability(Leveraging):
@@ -340,8 +350,8 @@ class Profitability(Leveraging):
                 "rule": "(ROI - IE) * DER",
                 "numbers": f"({self.get_return_on_investment_value()['value']} - {self._interest}) * {self.get_debt_equity_ratio_value()['value']}"}}
 
-    def get_return_trade_on_equity_using_EVA_value(self):
-        """return return trade on equity using EVA"""
+    def get_return_trade_on_equity_using_eva_value(self):
+        """return return trade on equity using eva"""
         self.get_return_on_investment_value()
         return {"value": round((1 -
                           self._tax_rate) *
@@ -350,8 +360,8 @@ class Profitability(Leveraging):
                  self._interest) *
                 self.get_debt_equity_ratio_value()['value'], 2)}
 
-    def get_return_trade_on_equity_using_EVA_formula(self):
-        """return return trade on equity using EVA formula"""
+    def get_return_trade_on_equity_using_eva_formula(self):
+        """return return trade on equity using eva formula"""
         return {
             "formula": {
                 "rule": "(1 - T) * ROI + (ROI - IE) * DER",
@@ -425,6 +435,49 @@ class MarketValue():
 class Engine(Lequidity, AssetsTO, Profitability, MarketValue):
     """engine class"""
 
+
+    def __init__(self):
+        self.__RATIOSLIST = {
+            'liquidity': [
+                'Current Ratio',
+                'Quick Ratio',
+                'Cash Ratio'
+            ],
+            'leverage': [
+                'Debt Ratio',
+                'Debt Equity Ratio',
+                'Equity Multiplier',
+                'Times Interest Earned',
+                'EBITDA Coverage'
+            ],
+            'assetsto': [
+                'Total Assets Turnover',
+                'Fixed Assets Turnover',
+                'Current Assets Turnover',
+                'Inventory Turnover',
+                'Days Sales in Inventory',
+                'Receivables Turnover',
+                'Days Sales Outstanding',
+                'Payables Turnover',
+                'Paid Period'
+            ],
+            'profitability': [
+                'Net Profit Margin',
+                'Return on Assets',
+                'Return on Equity',
+                'Return on Investment',
+                'Return Trade on Equity',
+                'Return Trade on Equity using EVA',
+                'Internal Growth Rate',
+                'sustainable Growth Rate'
+            ],
+            'marketvalue': [
+                'EPS',
+                'PE Ratio',
+                'MB Ratio',
+                'Fair Value of Stock'
+            ]
+        }
     def get_dates(self):
         """return dates"""
         companies = Company.objects.all()
@@ -439,8 +492,10 @@ class Engine(Lequidity, AssetsTO, Profitability, MarketValue):
         return data
 
     def date(self, year, company):
-        year = Dates.objects.get(date=year).id
-        company_id = Company.objects.get(name=company).id
+        year = Dates.objects.filter(date=year).first()
+        company_id = Company.objects.filter(name=company).first()
+        if not year or not company_id:
+            return None
         self._number_of_shares = Ratios.objects.get(date=year, company_id=company_id).number_of_shares
         self._market_price = Ratios.objects.get(date=year, company_id=company_id).market_price
         self._net_income = Ratios.objects.get(date=year, company_id=company_id).net_income
@@ -470,38 +525,16 @@ class Engine(Lequidity, AssetsTO, Profitability, MarketValue):
         """return date ratios"""
         self.date(year, company)
 
-        return {
-            "Current Ratio": {'value': self.get_current_ratio_value()['value'], 'formula': self.get_current_ratio_formula()['formula']},
-            "Quick Ratio": {'value': self.get_quick_ratio_value()['value'], 'formula': self.get_quick_ratio_formula()['formula']},
-            "Cash Ratio": {'value': self.get_cash_ratio_value()['value'], 'formula': self.get_cash_ratio_formula()['formula']},
-            "Debt Ratio": {'value': self.get_debt_ratio_value()['value'], 'formula': self.get_debt_ratio_formula()['formula']},
-            "Debt Equity Ratio": {'value': self.get_debt_equity_ratio_value()['value'], 'formula': self.get_debt_equity_ratio_formula()['formula']},
-            "Equity Multiplier": {'value': self.get_equity_multiplier_value()['value'], 'formula': self.get_equity_multiplier_formula()['formula']},
-            "Times Interest Earned": {'value': self.get_times_interest_earned_value()['value'], 'formula': self.get_times_interest_earned_formula()['formula']},
-            "EBITDA Coverage": {'value': self.get_ebitda_coverage_value()['value'], 'formula': self.get_ebitda_coverage_formula()['formula']},
-            "Total Assets Turnover": {'value': self.get_total_assets_turnover_value()['value'], 'formula': self.get_total_assets_turnover_formula()['formula']},
-            "Fixed Assets Turnover": {'value': self.get_fixed_assets_turnover_value()['value'], 'formula': self.get_fixed_assets_turnover_formula()['formula']},
-            "Current Assets Turnover": {'value': self.get_current_assets_turnover_value()['value'], 'formula': self.get_current_assets_turnover_formula()['formula']},
-            "Inventory Turnover": {'value': self.get_inventory_turnover_value()['value'], 'formula': self.get_inventory_turnover_formula()['formula']},
-            "Days Sales in Inventory": {'value': self.get_days_sales_in_inventory_value()['value'], 'formula': self.get_days_sales_in_inventory_formula()['formula']},
-            "Receivables Turnover": {'value': self.get_receivables_turnover_value()['value'], 'formula': self.get_receivables_turnover_formula()['formula']},
-            "Days Sales in Receivables": {'value': self.get_days_sales_in_receivables_value()['value'], 'formula': self.get_days_sales_in_receivables_formula()['formula']},
-            "Collection Period": {'value': self.get_days_sales_in_receivables_value()['value'], 'formula': self.get_days_sales_in_receivables_formula()['formula']},
-            "Payables Turnover": {'value': self.get_payables_turnover_value()['value'], 'formula': self.get_payables_turnover_formula()['formula']},
-            "Paid Period": {'value': self.get_payables_turnover_value()['value'], 'formula': self.get_payables_turnover_formula()['formula']},
-            "Net Profit Margin": {'value': self.get_net_profit_margin_value()['value'], 'formula': self.get_net_profit_margin_formula()['formula']},
-            "Return on Assets": {'value': self.get_return_on_assets_value()['value'], 'formula': self.get_return_on_assets_formula()['formula']},
-            "Return on Equity": {'value': self.get_return_on_equity_value()['value'], 'formula': self.get_return_on_equity_formula()['formula']},
-            "Return on Investment": {'value': self.get_return_on_investment_value()['value'], 'formula': self.get_return_on_investment_formula()['formula']},
-            "Return Trade on Equity": {'value': self.get_return_trade_on_equity_value()['value'], 'formula': self.get_return_trade_on_equity_formula()['formula']},
-            "Return Trade on Equity using EVA": {'value': self.get_return_trade_on_equity_using_EVA_value()['value'], 'formula': self.get_return_trade_on_equity_using_EVA_formula()['formula']},
-            "Internal Growth Rate": {'value': self.get_internal_growth_rate_value()['value'], 'formula': self.get_internal_growth_rate_formula()['formula']},
-            "Substantial Growth Rate": {'value': self.get_sustainable_growth_rate_value()['value'], 'formula': self.get_sustainable_growth_rate_formula()['formula']},
-            "EPS": {'value': self.get_eps_value()['value'], 'formula': self.get_eps_formula()['formula']},
-            "PE Ratio": {'value': self.get_pe_ratio_value()['value'], 'formula': self.get_pe_ratio_formula()['formula']},
-            "MB Ratio": {'value': self.get_mb_ratio_value()['value'], 'formula': self.get_mb_ratio_formula()['formula']},
-            "Fair Value of Stock": {'value': self.get_fair_value_of_stock_value()['value'], 'formula': self.get_fair_value_of_stock_formula()['formula']}
-        }
+        ratios_info = {}
+        for ratios in self.__RATIOSLIST.values():
+            for ratio in ratios:
+                ratio_data = {
+                    'value': getattr(self, f"get_{ratio.lower().replace(' ', '_')}_value")()['value'],
+                    'formula': getattr(self, f"get_{ratio.lower().replace(' ', '_')}_formula")()['formula']
+                }
+                ratios_info[ratio] = ratio_data
+
+        return ratios_info
 
     def get_components(self, formula):
         str(formula).replace("sqrt", "")
@@ -544,20 +577,15 @@ class Engine(Lequidity, AssetsTO, Profitability, MarketValue):
 
     def get_type(self, type, years, company):
         """return type"""
-        if type.lower() in ['liquidity', 'liquidity ratios', 'liquidity_ratios', 'liquidityratios']:
-            ratios = ['Current Ratio', 'Quick Ratio', 'Cash Ratio']
-
-        elif type.lower() in ['leverage', 'leverage ratios', 'leverageratios', 'leverage_ratios']:
-            ratios = ['Debt Ratio', 'Debt Equity Ratio', 'Equity Multiplier', 'Times Interest Earned', 'EBITDA Coverage']
-
-        elif type.lower() in ['assets turnover', 'assets_turnover', 'assetsturnover', 'assets', 'asset ratios', 'asset_ratios', 'assetratios']:
-            ratios = ['Total Assets Turnover', 'Fixed Assets Turnover', 'Current Assets Turnover', 'Inventory Turnover', 'Days Sales in Inventory', 'Receivables Turnover', 'Days Sales in Receivables', 'Collection Period', 'Payables Turnover', 'Paid Period']
-
-        elif type.lower() == 'profitability':
-            ratios = ['Net Profit Margin', 'Return on Assets', 'Return on Equity', 'Return on Investment', 'Return Trade on Equity', 'Return Trade on Equity using EVA', 'Internal Growth Rate', 'Substantial Growth Rate']
-
-        elif type.lower() in ['market value', 'market_value', 'marketvalue', 'market', 'market ratios', 'marketratios', 'market_ratios']:
-            ratios = ['EPS', 'PE Ratio', 'MB Ratio', 'Fair Value of Stock']
+        
+        if type not in self.__RATIOSLIST.keys():
+            return {"error": "Invalid type",
+                    "types": list(self.__RATIOSLIST.keys())}
+        
+        ratios = self.__RATIOSLIST[type]
+        
+        if not years:
+            return {"error": "Please provide years"}
 
         type_ratios = {}
         if len(years) == 1:
