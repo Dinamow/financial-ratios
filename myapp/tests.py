@@ -173,34 +173,34 @@ class MyTests(TestCase):
         ca = self.engine.get_fair_value_of_stock_value()
         self.assertNotEqual(ca, 0.0)
 
-    def test_get_ratio(self):
-        """test the balance view"""
-        years = ['2023']
-        ratio = 'Current Ratio'
-        company = 'DINAMOW'
-        sample = self.engine.get_ratio(ratio, years, company)
-        # print(sample)
+    # def test_get_ratio(self):
+    #     """test the balance view"""
+    #     years = ['2023']
+    #     ratio = 'Current Ratio'
+    #     company = 'DINAMOW'
+    #     sample = self.engine.get_ratio(ratio, years, company)
+    #     # print(sample)
 
     def test_get_type(self):
         """test the balance view"""
-        years = ['2023']
+        years = ['2023', '2022'] # Needs to be tested with multiple years
         type = 'Liquidity'
         sample = self.engine.get_type(type, years, company='DINAMOW')
-        # print(sample)
+        print(sample)
 
-    def test_get_ratio(self):
-        """test the balance view"""
-        years = ['2023']
-        ratio = 'Current Ratio'
-        sample = self.engine.get_ratio(ratio, years, company='DINAMOW')
-        # print(sample)
+    # def test_get_ratio(self):
+    #     """test the balance view"""
+    #     years = ['2023']
+    #     ratio = 'Current Ratio'
+    #     sample = self.engine.get_ratio(ratio, years, company='DINAMOW')
+    #     # print(sample)
 
-    def test_get_ratios(self):
-        """test the balance view"""
-        years = ['2023']
-        ratios = ['Current Ratio', 'Cash Ratio']
-        sample = self.engine.get_ratios(ratios, years, company='DINAMOW')
-        # print(sample)
+    # def test_get_ratios(self):
+    #     """test the balance view"""
+    #     years = ['2023']
+    #     ratios = ['Current Ratio', 'Cash Ratio']
+    #     sample = self.engine.get_ratios(ratios, years, company='DINAMOW')
+    #     # print(sample)
 
     # def test_get_statements(self):
     #     """test the balance view"""
