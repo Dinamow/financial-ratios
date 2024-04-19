@@ -36,5 +36,5 @@ def balance(request):
                             status=200)
 
     return JsonResponse(
-        {'error': 'Invalid request'},
+        {'error': 'Invalid request', 'message': 'Please provide type, company, years'},
         status=400)
