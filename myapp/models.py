@@ -549,8 +549,6 @@ class Engine(Lequidity, AssetsTO, Profitability, MarketValue):
         """return ratio"""
         formula = self.get_date_ratios(years[0], company)[ratio]['formula']
         components: str = self.get_components(formula['rule'])
-        components_values = self.get_components_values(formula['numbers'])
-        components_with_values = dict(zip(components, components_values))
         ratio_info = {
             'ratio': ratio,
             'formula': formula['rule'],
@@ -561,6 +559,8 @@ class Engine(Lequidity, AssetsTO, Profitability, MarketValue):
             'value': self.get_date_ratios(year, company)[ratio]['value'],
             'numbers': formula['numbers'],
             }
+            year_components_values = self.get_components_values(ratio_info[year]['numbers'])
+            components_with_values = dict(zip(components, year_components_values))
             ratio_info[year].update(components_with_values)
         return ratio_info
 
