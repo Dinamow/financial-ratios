@@ -27,7 +27,7 @@ def balance(request):
     type = request.GET.get('type')
     company = request.GET.get('company')
 
-    if not years:
+    if not years or years == "":
         return JsonResponse(
             {'error': 'Missing years'},
             status=400)

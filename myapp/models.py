@@ -9,22 +9,25 @@ class Dates(models.Model):
     date = models.CharField(max_length=10,
                             verbose_name="Date",
                             unique=True)
-    
+
     def __str__(self) -> str:
         return self.date
+
 
 class Company(models.Model):
     db_table = 'companies'
     name = models.CharField(max_length=100,
                             verbose_name="Company Name",
                             unique=True)
-    
+
     def __str__(self) -> str:
         return self.name
 
+
 class Ratios(models.Model):
     db_table = 'ratios'
-    number_of_shares = models.FloatField(verbose_name="Number of Shares", default=0.0)
+    number_of_shares = models.FloatField(
+        verbose_name="Number of Shares", default=0.0)
     market_price = models.FloatField(verbose_name="Market Price", default=0.0)
     net_income = models.FloatField(verbose_name="Net Income", default=0.0)
     sales = models.FloatField(verbose_name="Sales", default=0.0)
@@ -34,18 +37,27 @@ class Ratios(models.Model):
     interest = models.FloatField(verbose_name="Interest Expense", default=0.0)
     tax_rate = models.FloatField(verbose_name="Tax Rate", default=0.0)
     dividends = models.FloatField(verbose_name="Dividends", default=0.0)
-    total_fixed_assets = models.FloatField(verbose_name="Fixed Assets", default=0.0)
-    total_current_assets = models.FloatField(verbose_name="Total Current Assets", default=0.0)
-    cogs = models.FloatField(verbose_name="Cost of Revenue, Total", default=0.0)
+    total_fixed_assets = models.FloatField(
+        verbose_name="Fixed Assets", default=0.0)
+    total_current_assets = models.FloatField(
+        verbose_name="Total Current Assets", default=0.0)
+    cogs = models.FloatField(
+        verbose_name="Cost of Revenue, Total",
+        default=0.0)
     inventory = models.FloatField(verbose_name="Total Inventory", default=0.0)
-    account_receivables = models.FloatField(verbose_name="Total Receivables, Net", default=0.0)
-    account_payable = models.FloatField(verbose_name="Accounts Payable", default=0.0)
+    account_receivables = models.FloatField(
+        verbose_name="Total Receivables, Net", default=0.0)
+    account_payable = models.FloatField(
+        verbose_name="Accounts Payable", default=0.0)
     cash = models.FloatField(verbose_name="Cash & Equivalents", default=0.0)
-    total_current_liability = models.FloatField(verbose_name="Total Current Liabilities", default=0.0)
+    total_current_liability = models.FloatField(
+        verbose_name="Total Current Liabilities", default=0.0)
     total_debt = models.FloatField(verbose_name="Total Debt", default=0.0)
     ebitda = models.FloatField(verbose_name="EBITDA", default=0.0)
-    dividansRatio = models.FloatField(verbose_name="Dividans Ratio", default=0.0,
-                                      editable=False)
+    dividansRatio = models.FloatField(
+        verbose_name="Dividans Ratio",
+        default=0.0,
+        editable=False)
     book_value = models.FloatField(verbose_name="Book Value", default=0.0,
                                    editable=False)
     eps = models.FloatField(verbose_name="EPS", default=0.0,
@@ -58,18 +70,23 @@ class Ratios(models.Model):
         self.book_value = self.get_book_value()
         self.eps = self.get_eps()
         super().save(*args, **kwargs)
-    
+
     def get_dividans_ratio(self):
-        return round(self.dividends / self.net_income, 2) if self.net_income != 0 else 0.0
-    
+        return round(
+            self.dividends / self.net_income,
+            2) if self.net_income != 0 else 0.0
+
     def get_book_value(self):
-        return round(self.total_equity / self.number_of_shares, 2) if self.number_of_shares != 0 else 0.0
-    
+        return round(self.total_equity / self.number_of_shares,
+                     2) if self.number_of_shares != 0 else 0.0
+
     def get_eps(self):
-        return round(self.net_income / self.number_of_shares, 2) if self.number_of_shares != 0 else 0.0
-    
+        return round(self.net_income / self.number_of_shares,
+                     2) if self.number_of_shares != 0 else 0.0
+
     def __str__(self) -> str:
         return self.company.name + ' - ' + self.date.date
+
 
 class Lequidity():
     """lequidity class"""
@@ -92,7 +109,7 @@ class Lequidity():
                 self.__cash +
                 self.__account_receivables +
                 self.__inventory) /
-            self.__total_current_liability, 2)}
+                self.__total_current_liability, 2)}
 
     def get_current_ratio_formula(self):
         """return current ratio formula"""
@@ -107,12 +124,16 @@ class Lequidity():
         """return quick ratio value"""
         return {
             "value": round(
-            (self.__cash + self.__account_receivables) / self.__total_current_liability, 2)}
+                (self.__cash +
+                 self.__account_receivables) /
+                self.__total_current_liability,
+                2)}
 
     def get_quick_ratio_formula(self):
         """return quick ratio formula"""
         numbers = f"({self.__cash}"
-        numbers += f" + {self.__account_receivables}) / {self.__total_current_liability}"
+        numbers += f" + {self.__account_receivables}) / "
+        numbers += f"{self.__total_current_liability}"
         return {
             "formula": {
                 "rule": "cash + AR / CL",
@@ -120,14 +141,20 @@ class Lequidity():
 
     def get_cash_ratio_value(self):
         """return cash ratio value"""
-        return {"value": round(self.__cash / self.__total_current_liability, 2)}
+        return {
+            "value": round(
+                self.__cash /
+                self.__total_current_liability,
+                2)}
 
     def get_cash_ratio_formula(self):
         """return cash ratio formula"""
+        numbers = f"{self.__cash} / {self.__total_current_liability}"
         return {
             "formula": {
                 "rule": "cash / CL",
-                "numbers": f"{self.__cash} / {self.__total_current_liability}"}}
+                "numbers": f"{numbers}"}}
+
 
 class Leveraging():
     """leverage class"""
@@ -195,6 +222,7 @@ class Leveraging():
         """return EBITDA coverage formula"""
         return {"formula": {"rule": "EBITDA / IE",
                             "numbers": f"{self.__ebitda} / {self.__interest}"}}
+
 
 class AssetsTO():
     """assets turn over class"""
@@ -280,7 +308,12 @@ class AssetsTO():
 
     def get_days_sales_outstanding_value(self):
         """return days sales in receivables value"""
-        return {"value": round(self.__account_receivables / self.__sales * 365, 2)}
+        return {
+            "value": round(
+                self.__account_receivables /
+                self.__sales *
+                365,
+                2)}
 
     def get_days_sales_outstanding_formula(self):
         """return days sales in receivables formula"""
@@ -300,17 +333,18 @@ class AssetsTO():
             "formula": {
                 "rule": "COGS / AP",
                 "numbers": f"{self.__cogs} / {self.__account_payable}"}}
-    
+
     def get_paid_period_value(self):
         """return paid period value"""
         return {"value": round(self.__account_payable / self.__cogs * 365, 2)}
-    
+
     def get_paid_period_formula(self):
         """return paid period formula"""
         return {
             "formula": {
                 "rule": "AP / COGS * 365",
                 "numbers": f"{self.__account_payable} / {self.__cogs} * 365"}}
+
 
 class Profitability():
 
@@ -339,8 +373,10 @@ class Profitability():
 
     def get_net_profit_margin_formula(self):
         """return net profit margin formula"""
-        return {"formula": {"rule": "NI / Sales",
-                            "numbers": f"{self.__net_income} / {self.__sales}"}}
+        return {
+            "formula": {
+                "rule": "NI / Sales",
+                "numbers": f"{self.__net_income} / {self.__sales}"}}
 
     def get_return_on_assets_value(self):
         """return return on assets value"""
@@ -348,12 +384,14 @@ class Profitability():
 
     def get_return_on_assets_formula(self):
         """return return on assets formula"""
+        numbers = f"{self.__total_assets} * "
+        numbers += f"{self.get_net_profit_margin_value()['value']}"
         return {
             "formula": {
                 "rule": "NI / TA",
                 "numbers": f"{self.__net_income} / {self.__total_assets}",
                 "rule": "TOTA * PM",
-                "numbers": f"{self.__total_assets} * {self.get_net_profit_margin_value()['value']}"}}
+                "numbers": f"{numbers}"}}
 
     def get_return_on_equity_value(self):
         """return return on equity value"""
@@ -361,17 +399,17 @@ class Profitability():
 
     def get_return_on_equity_formula(self):
         """return return on equity formula"""
-        
+        numbers = f"{self.get_return_on_assets_value()['value']}"
         return {
             "formula": {
                 "rule": "NI / TE",
                 "numbers": f"{self.__net_income} / {self.__total_equity}",
                 "rule": "ROA * EM",
-                "numbers": f"{self.get_return_on_assets_value()['value']} * {self.__em}"}}
+                "numbers": f"{numbers} * {self.__em}"}}
 
     def get_return_on_investment_value(self):
         """return return on investment value"""
-        
+
         return {"value": round(self.__ebit / self.__total_assets, 2)}
 
     def get_return_on_investment_formula(self):
@@ -385,22 +423,25 @@ class Profitability():
         """return return trade on equity value"""
         return {
             "value": round(
-            (self.get_return_on_investment_value()['value'] - self.__interest) *
-            self.__de, 2)
-        }
+                (self.get_return_on_investment_value()['value'] -
+                 self.__interest) *
+                self.__de,
+                2)}
 
     def get_return_trade_on_equity_formula(self):
         """return return trade on equity formula"""
+        numbers = f"({self.get_return_on_investment_value()['value']}"
+        numbers += f" - {self.__interest}) * {self.__de}"
         return {
             "formula": {
                 "rule": "(ROI - IE) * DER",
-                "numbers": f"({self.get_return_on_investment_value()['value']} - {self.__interest}) * {self.__de}"}}
+                "numbers": f"{numbers}"}}
 
     def get_return_trade_on_equity_using_eva_value(self):
         """return return trade on equity using eva"""
         self.get_return_on_investment_value()
         return {"value": round((1 -
-                          self.__tax_rate) *
+                                self.__tax_rate) *
                 self.__roi +
                 (self.__roi -
                  self.__interest) *
@@ -408,23 +449,27 @@ class Profitability():
 
     def get_return_trade_on_equity_using_eva_formula(self):
         """return return trade on equity using eva formula"""
+        numbers = f"(1 - {self.__tax_rate}) * {self.__roi}"
+        numbers += f" + ({self.__roi} - {self.__interest}) * {self.__de}"
         return {
             "formula": {
-                "rule": "(1 - T) * ROI + (ROI - IE) * DER",
-                "numbers": f"(1 - {self.__tax_rate}) * {self.__roi} + ({self.__roi} - {self.__interest}) * {self.__de}"}}
+                "rule": "(1 - TR) * ROI + (ROI - IE) * DER",
+                "numbers": f"{numbers}"}}
 
     def get_internal_growth_rate_value(self):
         """return internal growth rate value"""
         return {"value": round(self.get_return_on_assets_value(
         )['value'] * (1 - self.__dividends_ratio), 2)}
-    
+
     def get_internal_growth_rate_formula(self):
         """return internal growth rate formula"""
+        numbers = f"{self.get_return_on_assets_value()['value']} * "
+        numbers += f"(1 - {self.__dividends_ratio})"
         return {
             "formula": {
                 "rule": "ROA * (1 - DR)",
-                "numbers": f"{self.get_return_on_assets_value()['value']} * (1 - {self.__dividends_ratio})"}}
-    
+                "numbers": f"{numbers}"}}
+
     def get_sustainable_growth_rate_value(self):
         """return sustainable growth rate value"""
         return {"value": round(self.get_return_on_assets_value(
@@ -432,10 +477,13 @@ class Profitability():
 
     def get_sustainable_growth_rate_formula(self):
         """return sustainable growth rate formula"""
+        numbers = f"{self.get_return_on_assets_value()['value']} * "
+        numbers += f"(1 - {self.__dividends_ratio})"
         return {
             "formula": {
                 "rule": "ROA * (1 - DR)",
-                "numbers": f"{self.get_return_on_assets_value()['value']} * (1 - {self.__dividends_ratio})"}}
+                "numbers": f"{numbers}"}}
+
 
 class MarketValue():
 
@@ -457,8 +505,10 @@ class MarketValue():
 
     def get_eps_formula(self):
         """return EPS formula"""
-        return {"formula": {"rule": "NI / Number of Shares",
-                            "numbers": f"{self.__net_income} / {self.__number_of_shares}"}}
+        return {
+            "formula": {
+                "rule": "NI / Number of Shares",
+                "numbers": f"{self.__net_income} / {self.__number_of_shares}"}}
 
     def get_pe_ratio_value(self):
         """return PE ratio value"""
@@ -466,8 +516,10 @@ class MarketValue():
 
     def get_pe_ratio_formula(self):
         """return PE ratio formula"""
-        return {"formula": {"rule": "Market Price / EPS",
-                            "numbers": f"{self.__market_price} / {self.__eps}"}}
+        return {
+            "formula": {
+                "rule": "Market Price / EPS",
+                "numbers": f"{self.__market_price} / {self.__eps}"}}
 
     def get_mb_ratio_value(self):
         """return PB ratio value"""
@@ -475,8 +527,10 @@ class MarketValue():
 
     def get_mb_ratio_formula(self):
         """return PB ratio formula"""
-        return {"formula": {"rule": "Market Price / Book Value",
-                            "numbers": f"{self.__market_price} / {self.__book_value}"}}
+        return {
+            "formula": {
+                "rule": "Market Price / BV",
+                "numbers": f"{self.__market_price} / {self.__book_value}"}}
 
     def get_fair_value_of_stock_value(self):
         """return fair value of stock value"""
@@ -484,10 +538,12 @@ class MarketValue():
 
     def get_fair_value_of_stock_formula(self):
         """return fair value of stock formula"""
+        numbers = f"sqrt(1.5 * 15 * {self.__book_value} * {self.__eps})"
         return {
             "formula": {
                 "rule": "sqrt(1.5 * 15 * BV * EPS)",
-                "numbers": f"sqrt(1.5 * 15 * {self.__book_value} * {self.__eps})"}}
+                "numbers": f"{numbers}"}}
+
 
 class Engine(Lequidity, Leveraging, AssetsTO, Profitability, MarketValue):
     """engine class"""
@@ -567,8 +623,11 @@ class Engine(Lequidity, Leveraging, AssetsTO, Profitability, MarketValue):
         for company in companies:
             company_data = {
                 'company': company.name,
-                'Dates': list(Ratios.objects.filter(company=company).values_list('date__date', flat=True).distinct())
-            }
+                'Dates': list(
+                    Ratios.objects.filter(
+                        company=company).values_list(
+                        'date__date',
+                        flat=True).distinct())}
             data.append(company_data)
         return data
 
@@ -588,7 +647,11 @@ class Engine(Lequidity, Leveraging, AssetsTO, Profitability, MarketValue):
         raw_data = {}
         for year in years:
             self.date(year, company)
-            raw_data[year] = {data: getattr(self, f"_{data.lower().replace(' ', '_')}") for data in self.__RAWDATA}
+            raw_data[year] = {
+                data: getattr(
+                    self,
+                    f"_{data.lower().replace(' ', '_')}")
+                for data in self.__RAWDATA}
         return raw_data
 
     def get_date_ratios(self, year, company):
@@ -599,9 +662,14 @@ class Engine(Lequidity, Leveraging, AssetsTO, Profitability, MarketValue):
         for ratios in self.__RATIOSLIST.values():
             for ratio in ratios:
                 ratio_data = {
-                    'value': getattr(self, f"get_{ratio.lower().replace(' ', '_')}_value")()['value'],
-                    'formula': getattr(self, f"get_{ratio.lower().replace(' ', '_')}_formula")()['formula']
-                }
+                    'value': getattr(
+                        self,
+                        f"get_{ratio.lower().replace(' ', '_')}_value")
+                    ()['value'],
+                    'formula': getattr(
+                        self,
+                        f"get_{ratio.lower().replace(' ', '_')}_formula")
+                    ()['formula']}
                 ratios_info[ratio] = ratio_data
 
         return ratios_info
@@ -626,23 +694,26 @@ class Engine(Lequidity, Leveraging, AssetsTO, Profitability, MarketValue):
         }
         for year in years:
             ratio_info[year] = {
-            'value': self.get_date_ratios(year, company)[ratio]['value'],
-            'numbers': self.get_date_ratios(year, company)[ratio]['formula']['numbers'],
-            }
-            year_components_values = self.get_components_values(ratio_info[year]['numbers'])
-            components_with_values = dict(zip(components, year_components_values))
+                'value': self.get_date_ratios(
+                    year, company)[ratio]['value'],
+                'numbers': self.get_date_ratios(
+                    year, company)[ratio]['formula']['numbers'], }
+            year_components_values = self.get_components_values(
+                ratio_info[year]['numbers'])
+            components_with_values = dict(
+                zip(components, year_components_values))
             ratio_info[year].update(components_with_values)
         return ratio_info
 
     def get_type(self, type, years, company):
         """return type"""
-        
+
         if type not in self.__RATIOSLIST.keys():
             return {"error": "Invalid type",
                     "types": list(self.__RATIOSLIST.keys())}
-        
+
         ratios = self.__RATIOSLIST[type]
-        
+
         if not years:
             return {"error": "Please provide years"}
 
@@ -652,11 +723,12 @@ class Engine(Lequidity, Leveraging, AssetsTO, Profitability, MarketValue):
             type_ratios[year] = []
             for ratio in ratios:
                 ratio_info = {
-                    'type': ratio,
-                    'value': self.get_date_ratios(year, company)[ratio]['value'],
-                    'formula': self.get_date_ratios(year, company)[ratio]['formula']['rule'],
-                    'numbers': self.get_date_ratios(year, company)[ratio]['formula']['numbers']
-                }
+                    'type': ratio, 'value': self.get_date_ratios(
+                        year, company)[ratio]['value'],
+                    'formula': self.get_date_ratios(
+                        year, company)[ratio]['formula']['rule'],
+                    'numbers': self.get_date_ratios(
+                        year, company)[ratio]['formula']['numbers']}
                 type_ratios[year].append(ratio_info)
         else:
             type_ratios = {
@@ -664,6 +736,6 @@ class Engine(Lequidity, Leveraging, AssetsTO, Profitability, MarketValue):
             }
             for year in years:
                 type_ratios[year] = {
-                    ratio: self.get_date_ratios(year, company)[ratio]['value'] for ratio in ratios
-                }
+                    ratio: self.get_date_ratios(
+                        year, company)[ratio]['value'] for ratio in ratios}
         return type_ratios
