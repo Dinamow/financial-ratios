@@ -25,13 +25,19 @@ def balance(request):
     years = request.GET.get('years')
     ratio = request.GET.get('ratio')
     type = request.GET.get('type')
-    company = request.GET.get('company')
+    company: str = request.GET.get('company')
 
     if not years or years == "":
         return JsonResponse(
             {'error': 'Missing years'},
             status=400)
 
+    if not company:
+        return JsonResponse(
+            {'error': 'Missing company'},
+            status=400)
+    
+    company = company.replace('_', ' ')
     years = years.split(',')
 
     if ratio:
