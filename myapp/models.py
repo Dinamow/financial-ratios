@@ -522,7 +522,7 @@ class Engine(Lequidity, AssetsTO, Profitability, MarketValue):
         self._ebit = ratios_obj.ebit
         self._interest = ratios_obj.interest
         self._tax_rate = ratios_obj.tax_rate
-        self._dividendsRatio = ratios_obj.dividansRatio
+        self._dividends_ratio = ratios_obj.dividansRatio
         self._total_fixed_assets = ratios_obj.total_fixed_assets
         self._total_current_assets = ratios_obj.total_current_assets
         self._cogs = ratios_obj.cogs
