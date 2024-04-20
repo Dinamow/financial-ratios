@@ -492,34 +492,35 @@ class Engine(Lequidity, AssetsTO, Profitability, MarketValue):
         return data
 
     def date(self, year, company):
-        year = Dates.objects.filter(date=year).first()
-        company_id = Company.objects.filter(name=company).first()
-        if not year or not company_id:
+        year_obj = Dates.objects.filter(date=year).first()
+        company_obj = Company.objects.filter(name=company).first()
+        if not year_obj or not company_obj:
             return None
-        self._number_of_shares = Ratios.objects.get(date=year, company_id=company_id).number_of_shares
-        self._market_price = Ratios.objects.get(date=year, company_id=company_id).market_price
-        self._net_income = Ratios.objects.get(date=year, company_id=company_id).net_income
-        self._sales = Ratios.objects.get(date=year, company_id=company_id).sales
-        self._total_assets = Ratios.objects.get(date=year, company_id=company_id).total_assets
-        self._total_equity = Ratios.objects.get(date=year, company_id=company_id).total_equity
-        self._ebit = Ratios.objects.get(date=year, company_id=company_id).ebit
-        self._interest = Ratios.objects.get(date=year, company_id=company_id).interest
-        self._tax_rate = Ratios.objects.get(date=year, company_id=company_id).tax_rate
-        self._dividendsRatio = Ratios.objects.get(date=year, company_id=company_id).dividansRatio
-        self._total_fixed_assets = Ratios.objects.get(date=year, company_id=company_id).total_fixed_assets
-        self._total_current_assets = Ratios.objects.get(date=year, company_id=company_id).total_current_assets
-        self._cogs = Ratios.objects.get(date=year, company_id=company_id).cogs
-        self._inventory = Ratios.objects.get(date=year, company_id=company_id).inventory
-        self._account_receivables = Ratios.objects.get(date=year, company_id=company_id).account_receivables
-        self._account_payable = Ratios.objects.get(date=year, company_id=company_id).account_payable
-        self._cash = Ratios.objects.get(date=year, company_id=company_id).cash
-        self._total_current_liability = Ratios.objects.get(date=year, company_id=company_id).total_current_liability
-        self._total_debt = Ratios.objects.get(date=year, company_id=company_id).total_debt
-        self._total_assets = Ratios.objects.get(date=year, company_id=company_id).total_assets
-        self._EBIT = Ratios.objects.get(date=year, company_id=company_id).ebit
-        self._ebitda = Ratios.objects.get(date=year, company_id=company_id).ebitda
-        self._book_value = self._total_equity / self._number_of_shares
-        self._eps = self._net_income / self._number_of_shares
+        ratios_obj = Ratios.objects.get(date=year_obj, company=company_obj)
+        self._number_of_shares = ratios_obj.number_of_shares
+        self._market_price = ratios_obj.market_price
+        self._net_income = ratios_obj.net_income
+        self._sales = ratios_obj.sales
+        self._total_assets = ratios_obj.total_assets
+        self._total_equity = ratios_obj.total_equity
+        self._ebit = ratios_obj.ebit
+        self._interest = ratios_obj.interest
+        self._tax_rate = ratios_obj.tax_rate
+        self._dividendsRatio = ratios_obj.dividansRatio
+        self._total_fixed_assets = ratios_obj.total_fixed_assets
+        self._total_current_assets = ratios_obj.total_current_assets
+        self._cogs = ratios_obj.cogs
+        self._inventory = ratios_obj.inventory
+        self._account_receivables = ratios_obj.account_receivables
+        self._account_payable = ratios_obj.account_payable
+        self._cash = ratios_obj.cash
+        self._total_current_liability = ratios_obj.total_current_liability
+        self._total_debt = ratios_obj.total_debt
+        self._total_assets = ratios_obj.total_assets
+        self._EBIT = ratios_obj.ebit
+        self._ebitda = ratios_obj.ebitda
+        self._book_value = ratios_obj.book_value
+        self._eps = ratios_obj.eps
 
     def get_date_ratios(self, year, company):
         """return date ratios"""
