@@ -363,26 +363,26 @@ class Profitability(Leveraging):
     def get_internal_growth_rate_value(self):
         """return internal growth rate value"""
         return {"value": round(self.get_return_on_assets_value(
-        )['value'] * (1 - self._dividendsRatio), 2)}
+        )['value'] * (1 - self._dividends_ratio), 2)}
     
     def get_internal_growth_rate_formula(self):
         """return internal growth rate formula"""
         return {
             "formula": {
                 "rule": "ROA * (1 - DR)",
-                "numbers": f"{self.get_return_on_assets_value()['value']} * (1 - {self._dividendsRatio})"}}
+                "numbers": f"{self.get_return_on_assets_value()['value']} * (1 - {self._dividends_ratio})"}}
     
     def get_sustainable_growth_rate_value(self):
         """return sustainable growth rate value"""
         return {"value": round(self.get_return_on_assets_value(
-        )['value'] * (1 - self._dividendsRatio), 2)}
+        )['value'] * (1 - self._dividends_ratio), 2)}
 
     def get_sustainable_growth_rate_formula(self):
         """return sustainable growth rate formula"""
         return {
             "formula": {
                 "rule": "ROA * (1 - DR)",
-                "numbers": f"{self.get_return_on_assets_value()['value']} * (1 - {self._dividendsRatio})"}}
+                "numbers": f"{self.get_return_on_assets_value()['value']} * (1 - {self._dividends_ratio})"}}
 
 class MarketValue():
 
@@ -469,6 +469,31 @@ class Engine(Lequidity, AssetsTO, Profitability, MarketValue):
                 'Fair Value of Stock'
             ]
         }
+        self.__RAWDATA = [
+            'Number of Shares',
+            'Market Price',
+            'Net Income',
+            'Sales',
+            'Total Assets',
+            'Total Equity',
+            'EBIT',
+            'Interest',
+            'Tax Rate',
+            'Dividends Ratio',
+            'Total Fixed Assets',
+            'Total Current Assets',
+            'COGS',
+            'Inventory',
+            'Account Receivables',
+            'Account Payable',
+            'Cash',
+            'Total Current Liability',
+            'Total Debt',
+            'EBITDA',
+            'Book Value',
+            'EPS'
+        ]
+
     def get_dates(self):
         """return dates"""
         companies = Company.objects.all()
@@ -496,7 +521,7 @@ class Engine(Lequidity, AssetsTO, Profitability, MarketValue):
         self._ebit = Ratios.objects.get(date=year, company_id=company_id).ebit
         self._interest = Ratios.objects.get(date=year, company_id=company_id).interest
         self._tax_rate = Ratios.objects.get(date=year, company_id=company_id).tax_rate
-        self._dividendsRatio = Ratios.objects.get(date=year, company_id=company_id).dividansRatio
+        self._dividends_ratio = Ratios.objects.get(date=year, company_id=company_id).dividansRatio
         self._total_fixed_assets = Ratios.objects.get(date=year, company_id=company_id).total_fixed_assets
         self._total_current_assets = Ratios.objects.get(date=year, company_id=company_id).total_current_assets
         self._cogs = Ratios.objects.get(date=year, company_id=company_id).cogs
@@ -515,31 +540,7 @@ class Engine(Lequidity, AssetsTO, Profitability, MarketValue):
         raw_data = {}
         for year in years:
             self.date(year, company)
-            raw_data[year] = {
-                'Number of Shares': self._number_of_shares,
-                'Market Price': self._market_price,
-                'Net Income': self._net_income,
-                'Sales': self._sales,
-                'Total Assets': self._total_assets,
-                'Total Equity': self._total_equity,
-                'EBIT': self._ebit,
-                'Interest': self._interest,
-                'Tax Rate': self._tax_rate,
-                'Dividends Ratio': self._dividendsRatio,
-                'Total Fixed Assets': self._total_fixed_assets,
-                'Total Current Assets': self._total_current_assets,
-                'COGS': self._cogs,
-                'Inventory': self._inventory,
-                'Account Receivables': self._account_receivables,
-                'Account Payable': self._account_payable,
-                'Cash': self._cash,
-                'Total Current Liability': self._total_current_liability,
-                'Total Debt': self._total_debt,
-                'EBITDA': self._ebitda,
-                'Book Value': self._book_value,
-                'EPS': self._eps,
-            }
-
+            raw_data[year] = {data: getattr(self, f"_{data.lower().replace(' ', '_')}") for data in self.__RAWDATA}
         return raw_data
 
     def get_date_ratios(self, year, company):
