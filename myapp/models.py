@@ -54,25 +54,19 @@ class Ratios(models.Model):
     date = models.ForeignKey(Dates, on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
-        # Calculate dividansRatio
-        if self.net_income != 0:
-            self.dividansRatio = self.dividends / self.net_income
-        else:
-            self.dividansRatio = 0.0
-        
-        # Calculate book_value
-        if self.number_of_shares != 0:
-            self.book_value = self.total_equity / self.number_of_shares
-        else:
-            self.book_value = 0.0
-        
-        # Calculate eps
-        if self.number_of_shares != 0:
-            self.eps = self.net_income / self.number_of_shares
-        else:
-            self.eps = 0.0
-        
+        self.dividansRatio = self.get_dividans_ratio()
+        self.book_value = self.get_book_value()
+        self.eps = self.get_eps()
         super().save(*args, **kwargs)
+    
+    def get_dividans_ratio(self):
+        return round(self.dividends / self.net_income, 2) if self.net_income != 0 else 0.0
+    
+    def get_book_value(self):
+        return round(self.total_equity / self.number_of_shares, 2) if self.number_of_shares != 0 else 0.0
+    
+    def get_eps(self):
+        return round(self.net_income / self.number_of_shares, 2) if self.number_of_shares != 0 else 0.0
     
     def __str__(self) -> str:
         return self.company.name + ' - ' + self.date.date
@@ -388,7 +382,7 @@ class MarketValue():
 
     def get_eps_value(self):
         """return EPS value"""
-        return {"value": round(self._eps, 2)}
+        return {"value": self._eps}
 
     def get_eps_formula(self):
         """return EPS formula"""
