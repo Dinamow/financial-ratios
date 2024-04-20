@@ -591,28 +591,28 @@ class Engine(Lequidity, Leveraging, AssetsTO, Profitability, MarketValue):
             ]
         }
         self.__RAWDATA = [
-            'Number of Shares',
-            'Market Price',
-            'Net Income',
-            'Sales',
-            'Total Assets',
-            'Total Equity',
-            'EBIT',
-            'Interest',
-            'Tax Rate',
-            'Dividends Ratio',
-            'Total Fixed Assets',
-            'Total Current Assets',
-            'COGS',
-            'Inventory',
-            'Account Receivables',
-            'Account Payable',
-            'Cash',
-            'Total Current Liability',
-            'Total Debt',
-            'EBITDA',
-            'Book Value',
-            'EPS'
+            'number of shares',
+            'market price',
+            'net income',
+            'sales',
+            'total assets',
+            'total equity',
+            'ebit',
+            'interest',
+            'tax rate',
+            'dividansRatio',
+            'total fixed assets',
+            'total current assets',
+            'cogs',
+            'inventory',
+            'account receivables',
+            'account payable',
+            'cash',
+            'total current liability',
+            'total debt',
+            'ebitda',
+            'book value',
+            'eps'
         ]
 
     def get_dates(self):
@@ -646,12 +646,12 @@ class Engine(Lequidity, Leveraging, AssetsTO, Profitability, MarketValue):
         """return raw data (which is used to get ratios)"""
         raw_data = {}
         for year in years:
-            self.date(year, company)
-            raw_data[year] = {
-                data: getattr(
-                    self,
-                    f"_{data.lower().replace(' ', '_')}")
-                for data in self.__RAWDATA}
+            year_obj = Dates.objects.filter(date=year).first()
+            company_obj = Company.objects.filter(name=company).first()
+            if not year_obj or not company_obj:
+                return None
+            ratios_obj = Ratios.objects.get(date=year_obj, company=company_obj)
+            raw_data[year] = { ratio: getattr(ratios_obj, ratio.replace(' ', '_')) for ratio in self.__RAWDATA}
         return raw_data
 
     def get_date_ratios(self, year, company):
