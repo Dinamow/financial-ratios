@@ -98,3 +98,55 @@ if ratio is selected: -> Returns the ratio with its formula and numbers, ex. "Cu
         }
         "numbers": "1.5 / 1.0"
     }
+
+if only years and company are selected:
+    {
+        "2022": {
+            "Number of Shares": 500,
+            "Market Price": 5000,
+            "Net Income": 100000,
+            "Sales": 50000,
+            "Total Assets": 500000,
+            "Total Equity": 200000,
+            "EBIT": 300000,
+            "Interest": 2000,
+            "Tax Rate": 6,
+            "Dividends Ratio": 0.0059,
+            "Total Fixed Assets": 85,
+            "Total Current Assets": 5993312,
+            "COGS": 53512,
+            "Inventory": 88888,
+            "Account Receivables": 294201,
+            "Account Payable": 28420,
+            "Cash": 48219,
+            "Total Current Liability": 48282,
+            "Total Debt": 49102,
+            "EBITDA": 48218,
+            "Book Value": 400,
+            "EPS": 200
+        },
+        "2023": {
+            "Number of Shares": 1550,
+            "Market Price": 5488,
+            "Net Income": 648848,
+            "Sales": 3456468,
+            "Total Assets": 5464568,
+            "Total Equity": 86486,
+            "EBIT": 484,
+            "Interest": 5,
+            "Tax Rate": 5,
+            "Dividends Ratio": 0.0007212783271274628,
+            "Total Fixed Assets": 486,
+            "Total Current Assets": 4864,
+            "COGS": 684768,
+            "Inventory": 74,
+            "Account Receivables": 687468,
+            "Account Payable": 76,
+            "Cash": 876,
+            "Total Current Liability": 8786,
+            "Total Debt": 68,
+            "EBITDA": 768,
+            "Book Value": 55.79741935483871,
+            "EPS": 418.6116129032258
+        }
+    }
