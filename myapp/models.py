@@ -13,7 +13,6 @@ class Dates(models.Model):
     def __str__(self) -> str:
         return self.date
 
-
 class Company(models.Model):
     db_table = 'companies'
     name = models.CharField(max_length=100,
@@ -22,7 +21,6 @@ class Company(models.Model):
     
     def __str__(self) -> str:
         return self.name
-
 
 class Ratios(models.Model):
     db_table = 'ratios'
@@ -79,8 +77,6 @@ class Ratios(models.Model):
     def __str__(self) -> str:
         return self.company.name + ' - ' + self.date.date
 
-
-
 class Lequidity():
     """lequidity class"""
 
@@ -127,7 +123,6 @@ class Lequidity():
             "formula": {
                 "rule": "cash / CL",
                 "numbers": f"{self._cash} / {self._total_current_liability}"}}
-
 
 class Leveraging():
     """leverage class"""
@@ -182,7 +177,6 @@ class Leveraging():
         """return EBITDA coverage formula"""
         return {"formula": {"rule": "EBITDA / IE",
                             "numbers": f"{self._ebitda} / {self._interest}"}}
-
 
 class AssetsTO():
     """assets turn over class"""
@@ -284,7 +278,6 @@ class AssetsTO():
             "formula": {
                 "rule": "AP / COGS * 365",
                 "numbers": f"{self._account_payable} / {self._cogs} * 365"}}
-
 
 class Profitability(Leveraging):
 
@@ -391,7 +384,6 @@ class Profitability(Leveraging):
                 "rule": "ROA * (1 - DR)",
                 "numbers": f"{self.get_return_on_assets_value()['value']} * (1 - {self._dividendsRatio})"}}
 
-
 class MarketValue():
 
     def get_eps_value(self):
@@ -434,7 +426,6 @@ class MarketValue():
 
 class Engine(Lequidity, AssetsTO, Profitability, MarketValue):
     """engine class"""
-
 
     def __init__(self):
         self.__RATIOSLIST = {
@@ -515,11 +506,41 @@ class Engine(Lequidity, AssetsTO, Profitability, MarketValue):
         self._cash = Ratios.objects.get(date=year, company_id=company_id).cash
         self._total_current_liability = Ratios.objects.get(date=year, company_id=company_id).total_current_liability
         self._total_debt = Ratios.objects.get(date=year, company_id=company_id).total_debt
-        self._total_assets = Ratios.objects.get(date=year, company_id=company_id).total_assets
-        self._EBIT = Ratios.objects.get(date=year, company_id=company_id).ebit
         self._ebitda = Ratios.objects.get(date=year, company_id=company_id).ebitda
         self._book_value = self._total_equity / self._number_of_shares
         self._eps = self._net_income / self._number_of_shares
+
+    def get_raw_data(self, years, company):
+        """return raw data (which is used to get ratios)"""
+        raw_data = {}
+        for year in years:
+            self.date(year, company)
+            raw_data[year] = {
+                'Number of Shares': self._number_of_shares,
+                'Market Price': self._market_price,
+                'Net Income': self._net_income,
+                'Sales': self._sales,
+                'Total Assets': self._total_assets,
+                'Total Equity': self._total_equity,
+                'EBIT': self._ebit,
+                'Interest': self._interest,
+                'Tax Rate': self._tax_rate,
+                'Dividends Ratio': self._dividendsRatio,
+                'Total Fixed Assets': self._total_fixed_assets,
+                'Total Current Assets': self._total_current_assets,
+                'COGS': self._cogs,
+                'Inventory': self._inventory,
+                'Account Receivables': self._account_receivables,
+                'Account Payable': self._account_payable,
+                'Cash': self._cash,
+                'Total Current Liability': self._total_current_liability,
+                'Total Debt': self._total_debt,
+                'EBITDA': self._ebitda,
+                'Book Value': self._book_value,
+                'EPS': self._eps,
+            }
+
+        return raw_data
 
     def get_date_ratios(self, year, company):
         """return date ratios"""
@@ -537,8 +558,8 @@ class Engine(Lequidity, AssetsTO, Profitability, MarketValue):
         return ratios_info
 
     def get_components(self, formula):
-        str(formula).replace("sqrt", "")
-        components = re.findall(r'\b\w+\b', str(formula))
+        formula = str(formula).replace("sqrt", "")
+        components = re.findall(r'\b[\w.]+\b', str(formula))
         return components
 
     def get_components_values(self, numbers):
@@ -557,22 +578,12 @@ class Engine(Lequidity, AssetsTO, Profitability, MarketValue):
         for year in years:
             ratio_info[year] = {
             'value': self.get_date_ratios(year, company)[ratio]['value'],
-            'numbers': formula['numbers'],
+            'numbers': self.get_date_ratios(year, company)[ratio]['formula']['numbers'],
             }
             year_components_values = self.get_components_values(ratio_info[year]['numbers'])
             components_with_values = dict(zip(components, year_components_values))
             ratio_info[year].update(components_with_values)
         return ratio_info
-
-    def get_ratios(self, ratios, years, company):
-        """return ratios (for comparison)"""
-        ratios_info = {
-            'ratios': ratios,
-        }
-        for year in years:
-            ratios_info[year] = {ratio: self.get_date_ratios(year, company)[ratio]['value'] for ratio in ratios}
-
-        return ratios_info
 
     def get_type(self, type, years, company):
         """return type"""
@@ -607,7 +618,3 @@ class Engine(Lequidity, AssetsTO, Profitability, MarketValue):
                     ratio: self.get_date_ratios(year, company)[ratio]['value'] for ratio in ratios
                 }
         return type_ratios
-
-    # def get_statements(self, years, statements):
-    #     """return statements"""
-    #     return {year: {statement: self._data['Financial Statements'][statement][year] for statement in statements} for year in years}

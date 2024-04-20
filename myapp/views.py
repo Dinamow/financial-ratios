@@ -38,12 +38,17 @@ def balance(request):
         return JsonResponse(ENGINE.get_ratio(ratio, years, company),
                             status=200)
 
-    if type:
+    elif type:
         resp = ENGINE.get_type(type, years, company)
         if 'error' in resp.keys():
             return JsonResponse(resp, status=400)
         return JsonResponse(resp, status=200)
-            
+
+    elif not type and not ratio:
+        resp = ENGINE.get_raw_data(years, company)
+        if 'error' in resp.keys():
+            return JsonResponse(resp, status=400)
+        return JsonResponse(resp, status=200)
 
     return JsonResponse(
         {'error': 'Invalid request', 'message': 'Please provide type, company, years'},
