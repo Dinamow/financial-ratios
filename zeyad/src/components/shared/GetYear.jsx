@@ -20,11 +20,11 @@ import { useState } from "react";
 import CompareYears from "./CompareYears";
 function GetYear() {
   const types = [
-    "Liquidity",
-    "Leveraging",
-    "Profitability",
-    "Market Value",
-    "AssetsTo ",
+    "liquidity",
+    "leverage",
+    "profitability",
+    "marketvalue",
+    "assetsto ",
   ];
   const years = [2022, 2021, 2020, 2019];
   const [year, setYear] = useState("");
