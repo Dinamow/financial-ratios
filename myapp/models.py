@@ -784,5 +784,10 @@ class Engine(Lequidity, Leveraging, AssetsTO, Profitability, MarketValue):
                 tmp[i] = data.get(i)
         Ratios.objects.create(date=date, company=company, **tmp)
         return {"message": "Data saved successfully"}
-                
-                
+
+    def get_raw(self):
+        data = []
+        for i in self.__RAWDATA:
+            if i != 'eps' and i != 'book value' and i != 'dividansRatio':
+                data.append(i)
+        return {'data': data}
