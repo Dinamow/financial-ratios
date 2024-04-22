@@ -1,6 +1,7 @@
 from django.test import TestCase
+from django.urls import reverse
 from .models import *
-import random
+
 
 def get_values(company, date):
     return {"number_of_shares": 1000000,
@@ -108,7 +109,7 @@ class MyTests(TestCase):
         ca = self.engine.get_receivables_turnover_value()
         self.assertNotEqual(ca, 0.0)
     
-    def test_get_days_sales_in_receivables_value(self):
+    def get_days_sales_outstanding_value(self):
         """test the balance view"""
         ca = self.engine.get_days_sales_in_receivables_value()
         self.assertNotEqual(ca, 0.0)
@@ -145,7 +146,7 @@ class MyTests(TestCase):
     
     def test_return_trade_on_equity_using_EVA_value(self):
         """test the balance view"""
-        ca = self.engine.get_return_trade_on_equity_using_EVA_value()
+        ca = self.engine.get_return_trade_on_equity_using_eva_value()
         self.assertNotEqual(ca, 0.0)
     
     def test_get_internal_growth_rate_value(self):
@@ -173,52 +174,14 @@ class MyTests(TestCase):
         ca = self.engine.get_fair_value_of_stock_value()
         self.assertNotEqual(ca, 0.0)
 
-    # def test_get_ratio(self):
-    #     """test the balance view"""
-    #     years = ['2023']
-    #     ratio = 'Current Ratio'
-    #     company = 'DINAMOW'
-    #     sample = self.engine.get_ratio(ratio, years, company)
-    #     # print(sample)
-
     def test_get_type(self):
         """test the balance view"""
-        years = ['2023', '2022'] # Needs to be tested with multiple years
+        years = ['2023', '2022']
         type = 'Liquidity'
         sample = self.engine.get_type(type, years, company='DINAMOW')
-        print(sample)
 
-    # def test_get_ratio(self):
-    #     """test the balance view"""
-    #     years = ['2023']
-    #     ratio = 'Current Ratio'
-    #     sample = self.engine.get_ratio(ratio, years, company='DINAMOW')
-    #     # print(sample)
-
-    # def test_get_ratios(self):
-    #     """test the balance view"""
-    #     years = ['2023']
-    #     ratios = ['Current Ratio', 'Cash Ratio']
-    #     sample = self.engine.get_ratios(ratios, years, company='DINAMOW')
-    #     # print(sample)
-
-    # def test_get_statements(self):
-    #     """test the balance view"""
-    #     years = ['2023', '2022']
-    #     statements = ['Balance Sheets', 'Income Statements']
-    #     sample = self.engine.get_statements(years, statements)
-    #     # print(sample)
-
-    # def test_get_ratio(self):
-    #     """test the balance view"""
-    #     years = ['2023', '2022']
-    #     ratio = 'Current Ratio'
-    #     sample = self.engine.get_ratio(ratio, years)
-    #     # print(sample)
-
-    # def test_get_ratios(self):
-    #     """test the balance view"""
-    #     years = ['2023', '2022']
-    #     ratios = ['Current Ratio', 'Cash Ratio']
-    #     sample = self.engine.get_ratios(ratios, years)
-    #     # print(sample)
+    def test_save(self):
+        """test the save view"""
+        response = self.client.get(reverse('save'), {'company': 'DINAMOW', 'years': '2023'})
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json(), {'error': 'POST request required'})
