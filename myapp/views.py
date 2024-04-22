@@ -61,6 +61,14 @@ def balance(request):
         {'error': 'Invalid request', 'message': 'Please provide type, company, years'},
         status=400)
 
+def create(request):
+    if request.method != 'GET':
+        return JsonResponse(
+            {'error': 'GET request required'},
+            status=400)
+    return JsonResponse(
+        ENGINE.get_raw(), status=200)
+
 def save(request):
     if request.method != 'POST':
         return JsonResponse(
