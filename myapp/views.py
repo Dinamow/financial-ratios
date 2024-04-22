@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from .models import Engine
+import re
 
 ENGINE = Engine()
 
@@ -59,3 +60,34 @@ def balance(request):
     return JsonResponse(
         {'error': 'Invalid request', 'message': 'Please provide type, company, years'},
         status=400)
+
+def save(request):
+    if request.method != 'POST':
+        return JsonResponse(
+            {'error': 'POST request required'},
+            status=400)
+
+    data = request.POST
+
+    company = data.get('company')
+    years = data.get('years')
+
+    if not company or not years:
+        return JsonResponse(
+            {'error': 'Missing parameters'},
+            status=400)
+
+    if ',' in years:
+        return JsonResponse(
+            {'error': 'Invalid years parameter'},
+            status=400)
+    
+    if not re.match(r'^\d{4}$', years):
+        return JsonResponse(
+            {'error': 'Invalid years format'},
+            status=400)
+    
+    resp = ENGINE.save_ratios(data)
+    if 'error' in resp.keys():
+        return JsonResponse(resp, status=400)
+    return JsonResponse(resp, status=201)
