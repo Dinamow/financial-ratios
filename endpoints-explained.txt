@@ -150,3 +150,53 @@ if only years and company are selected:
             "EPS": 418.6116129032258
         }
     }
+
+==========================================
+3 - api/v1/create GET
+return list of the keys to fill
+{"data": [
+    'number of shares',
+    'market price',
+    'net income',
+    'sales',
+    'total assets',
+    'total equity',
+    'ebit',
+    'interest',
+    'tax rate',
+    'total fixed assets',
+    'total current assets',
+    'cogs',
+    'inventory',
+    'account receivables',
+    'account payable',
+    'cash',
+    'total current liability',
+    'total debt',
+    'ebitda',
+]}
+
+===================================
+4- api/v1/save POST
+send data to store them in the DB
+company: str company name
+years: the year 2022 or 2023 or whatever
+number_of_shares: int
+market_price: int
+net_income: int
+sales: int
+total_assets: int
+total_equity: int
+ebit: int
+interest: int
+tax_rate: int
+total_fixed_assets: int
+total_current_assets: int
+cogs: int
+inventory: int
+account_receivables: int
+account_payable: int
+cash: int
+total_current_liability: int
+total_debt: int
+ebitda: int
