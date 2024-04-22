@@ -286,14 +286,14 @@ class AssetsTO():
 
     def get_days_sales_in_inventory_value(self):
         """return days sales in inventory value"""
-        return {"value": round(self.__inventory / self.__cogs * 365, 2)}
+        return {"value": round(self.__inventory / self.__cogs * 360, 2)}
 
     def get_days_sales_in_inventory_formula(self):
         """return days sales in inventory formula"""
         return {
             "formula": {
-                "rule": "INV / COGS * 365",
-                "numbers": f"{self.__inventory} / {self.__cogs} * 365"}}
+                "rule": "INV / COGS * 360",
+                "numbers": f"{self.__inventory} / {self.__cogs} * 360"}}
 
     def get_receivables_turnover_value(self):
         """return receivables turnover value"""
@@ -312,15 +312,15 @@ class AssetsTO():
             "value": round(
                 self.__account_receivables /
                 self.__sales *
-                365,
+                360,
                 2)}
 
     def get_days_sales_outstanding_formula(self):
         """return days sales in receivables formula"""
-        numbers = f"{self.__account_receivables} / {self.__sales} * 365"
+        numbers = f"{self.__account_receivables} / {self.__sales} * 360"
         return {
             "formula": {
-                "rule": "AR / Sales * 365",
+                "rule": "AR / Sales * 360",
                 "numbers": f"{numbers}"}}
 
     def get_payables_turnover_value(self):
@@ -336,14 +336,14 @@ class AssetsTO():
 
     def get_paid_period_value(self):
         """return paid period value"""
-        return {"value": round(self.__account_payable / self.__cogs * 365, 2)}
+        return {"value": round(self.__account_payable / self.__cogs * 360, 2)}
 
     def get_paid_period_formula(self):
         """return paid period formula"""
         return {
             "formula": {
-                "rule": "AP / COGS * 365",
-                "numbers": f"{self.__account_payable} / {self.__cogs} * 365"}}
+                "rule": "AP / COGS * 360",
+                "numbers": f"{self.__account_payable} / {self.__cogs} * 360"}}
 
 
 class Profitability():
@@ -614,6 +614,11 @@ class Engine(Lequidity, Leveraging, AssetsTO, Profitability, MarketValue):
             'book value',
             'eps'
         ]
+        self.__AVOID = [
+            'book_value',
+            'eps',
+            'dividansRatio'
+        ]
 
     def get_dates(self):
         """return dates"""
@@ -683,8 +688,17 @@ class Engine(Lequidity, Leveraging, AssetsTO, Profitability, MarketValue):
         components_values = re.findall(r'\d+\.\d+|\d+', str(numbers))
         return components_values
 
+    def check_ratio(self, ratio):
+        for ratios in self.__RATIOSLIST.values():
+            if ratio in ratios:
+                return False
+        return True
+
     def get_ratio(self, ratio, years, company):
         """return ratio"""
+        if self.check_ratio(ratio):
+            return {"error": "Invalid ratio",
+                    "ratios": list(self.__RATIOSLIST.values())}
         formula = self.get_date_ratios(years[0], company)[ratio]['formula']
         components: str = self.get_components(formula['rule'])
         ratio_info = {
@@ -704,13 +718,20 @@ class Engine(Lequidity, Leveraging, AssetsTO, Profitability, MarketValue):
                 zip(components, year_components_values))
             ratio_info[year].update(components_with_values)
         return ratio_info
+    
+    def get_values(self):
+        """return values"""
+        values = []
+        for i in self.__RATIOSLIST:
+            values.extend(i)
+        return values
 
     def get_type(self, type, years, company):
         """return type"""
 
         if type not in self.__RATIOSLIST.keys():
             return {"error": "Invalid type",
-                    "types": list(self.__RATIOSLIST.keys())}
+                    "types": self.get_values()}
 
         ratios = self.__RATIOSLIST[type]
 
@@ -736,6 +757,32 @@ class Engine(Lequidity, Leveraging, AssetsTO, Profitability, MarketValue):
             }
             for year in years:
                 type_ratios[year] = {
-                    ratio: self.get_date_ratios(
+                    ratio.replace(' ', '_'): self.get_date_ratios(
                         year, company)[ratio]['value'] for ratio in ratios}
         return type_ratios
+    
+    def save_ratios(self, data: dict):
+        """takes data and save them into db"""
+        year = data.get('years')
+        company = data.get('company')
+        date = Dates.objects.filter(date=year).first()
+        company = Company.objects.filter(name=company).first()
+
+        if date and company:
+            if Ratios.objects.filter(date=date, company=company).exists():
+                return {"error": "Data already exists"}
+        if not date:
+            date = Dates.objects.create(date=year)
+        if not company:
+            company = Company.objects.create(name=data.get('company'))
+        tmp = {}
+        for i in self.__RAWDATA:
+            i = i.replace(' ', '_')
+            if i not in self.__AVOID:
+                if i not in data.keys():
+                    return {"error": f"Missing {i.replace('_', ' ')}"}
+                tmp[i] = data.get(i)
+        Ratios.objects.create(date=date, company=company, **tmp)
+        return {"message": "Data saved successfully"}
+                
+                
