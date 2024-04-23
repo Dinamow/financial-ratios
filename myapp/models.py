@@ -66,6 +66,13 @@ class Ratios(models.Model):
     date = models.ForeignKey(Dates, on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
+        for coloumn in self._meta.fields:
+            n = coloumn.name
+            v = getattr(self, n)
+            if n != 'id' and n != 'company' and n != 'date':
+                if n != 'dividansRatio' and n != 'book_value' and n != 'eps':
+                    setattr(self, n, float(v))
+
         self.dividansRatio = self.get_dividans_ratio()
         self.book_value = self.get_book_value()
         self.eps = self.get_eps()
