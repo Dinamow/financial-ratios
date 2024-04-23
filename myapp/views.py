@@ -80,14 +80,19 @@ def save(request):
     company = data.get('company')
     years = data.get('years')
 
-    if not company or not years:
+    if not company:
         return JsonResponse(
-            {'error': 'Missing parameters'},
+            {'error': 'Missing company'},
+            status=400)
+    
+    if not years:
+        return JsonResponse(
+            {'error': 'Missing year'},
             status=400)
 
     if ',' in years:
         return JsonResponse(
-            {'error': 'Invalid years parameter'},
+            {'error': 'Invalid year'},
             status=400)
     
     if not re.match(r'^\d{4}$', years):
