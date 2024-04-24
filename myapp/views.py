@@ -81,11 +81,10 @@ def balance(request):
 
 def create(request):
     if request.method != 'GET':
-        return JsonResponse(
-            {'error': 'GET request required'},
-            status=400)
-    return JsonResponse(
-        ENGINE.get_raw(), status=200)
+        return HttpResponseBadRequest(
+            'GET request required')
+    return render(request, 'create.html', context=ENGINE.get_raw())
+        
 
 def save(request):
     if request.method != 'POST':
@@ -96,26 +95,26 @@ def save(request):
     data = request.POST
 
     company = data.get('company')
-    years = data.get('years')
+    year = data.get('year')
 
     if not company:
         return JsonResponse(
             {'error': 'Missing company'},
             status=400)
     
-    if not years:
+    if not year:
         return JsonResponse(
             {'error': 'Missing year'},
             status=400)
 
-    if ',' in years:
+    if ',' in year:
         return JsonResponse(
             {'error': 'Invalid year'},
             status=400)
     
-    if not re.match(r'^\d{4}$', years):
+    if not re.match(r'^\d{4}$', year):
         return JsonResponse(
-            {'error': 'Invalid years format'},
+            {'error': 'Invalid year format'},
             status=400)
     
     resp = ENGINE.save_ratios(data)
