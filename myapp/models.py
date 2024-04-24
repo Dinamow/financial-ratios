@@ -622,7 +622,7 @@ class Engine(Lequidity, Leveraging, AssetsTO, Profitability, MarketValue):
             'eps'
         ]
         self.__AVOID = [
-            'book_value',
+            'book value',
             'eps',
             'dividansRatio'
         ]
@@ -770,7 +770,7 @@ class Engine(Lequidity, Leveraging, AssetsTO, Profitability, MarketValue):
     
     def save_ratios(self, data: dict):
         """takes data and save them into db"""
-        year = data.get('years')
+        year = data.get('year')
         company = data.get('company')
         date = Dates.objects.filter(date=year).first()
         company = Company.objects.filter(name=company).first()
@@ -784,16 +784,15 @@ class Engine(Lequidity, Leveraging, AssetsTO, Profitability, MarketValue):
             company = Company.objects.create(name=data.get('company'))
         tmp = {}
         for i in self.__RAWDATA:
-            i = i.replace(' ', '_')
             if i not in self.__AVOID:
                 if i not in data.keys():
-                    return {"error": f"Missing {i.replace('_', ' ')}"}
-                tmp[i] = data.get(i)
+                    return {"error": f"Missing {i}"}
+                tmp[i.replace(' ', '_')] = data.get(i)
         Ratios.objects.create(date=date, company=company, **tmp)
         return {"message": "Data saved successfully"}
 
     def get_raw(self):
-        data = []
+        data = ['company', 'year']
         for i in self.__RAWDATA:
             if i != 'eps' and i != 'book value' and i != 'dividansRatio':
                 data.append(i)
