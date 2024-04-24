@@ -1,0 +1,38 @@
+<!-- other_template.html -->
+{% extends 'base.html' %}
+
+{% block extra_head %}
+    {{ block.super }}
+    {% load static %}
+    <link rel="stylesheet" href="{% static "css/one.css" %}">
+    <script src="{% static "js/create.js" %}"></script>
+{% endblock %}
+
+{% block content_above_image %}
+    <div class="content-above-image">
+        <h1>Welcome to Our WebApplication</h1>
+        <h2>Ratios Calculator</h2>
+        <p id="para_before_img">this app will automate the calculation of the financial ratios.</p>
+    </div>
+{% endblock %}
+
+{% block content %}
+<form method="POST" action="save">
+{% csrf_token %}
+<table>
+<tr>
+    <tr>
+        <th colspan="2" style="text-align: center;">Add the following data</th>
+    </tr>
+</tr>
+{% for i in data %}
+<tr>
+    <td><p>{{i}}</p></td>
+    <td><input type="text" name="{{ i }}"></td>
+</tr>
+{% endfor %}
+</table>
+<button type="submit" id="submit-btn" disabled>Submit</button>
+</form>
+
+{% endblock %}
