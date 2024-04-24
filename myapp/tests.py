@@ -39,13 +39,13 @@ class MyTests(TestCase):
 
     def test_testing(self):
         """test the testing view"""
-        response = self.client.get('/api/v1/')
+        response = self.client.get(reverse('testing'))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), {'foo': 'bar'})
     
     def test_dates(self):
         """test the dates view"""
-        response = self.client.get('/api/v1/dates/')
+        response = self.client.get(reverse('dates'))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), {"dates": self.engine.get_dates()})
     
