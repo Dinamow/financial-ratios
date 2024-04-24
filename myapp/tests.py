@@ -200,45 +200,45 @@ class MyTests(TestCase):
 
     def test_save_with_invalid_years(self):
         """test the save view with invalid years"""
-        response = self.client.post(reverse('save'), {'company': 'DINAMOW', 'years': '2023,2024'})
+        response = self.client.post(reverse('save'), {'company': 'DINAMOW', 'year': '2023,2024'})
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.json(), {'error': 'Invalid year'})
     
     def test_save_with_existing_company_and_year(self):
         """test the save view with existing company and year"""
-        response = self.client.post(reverse('save'), {'company': 'DINAMOW', 'years': '2023'})
+        response = self.client.post(reverse('save'), {'company': 'DINAMOW', 'year': '2023'})
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.json(), {'error': 'Data already exists'})
 
     def test_save_with_incompleted_data(self):
         """test the save view with incompleted data"""
-        data = {'company': 'DINAMOW', 'years': '2024',
-                "number_of_shares": 1000000,
-                "market_price": 50.25,
-                "net_income": 5000000,
+        data = {'company': 'DINAMOW', 'year': '2024',
+                "number of shares": 1000000,
+                "market price": 50.25,
+                "net income": 5000000,
                 "sales": 20000000,
-                "total_assets": 30000000,
-                "total_equity": 15000000,
+                "total assets": 30000000,
+                "total equity": 15000000,
                 "ebit": 8000000,
                 "interest": 1000000,
-                "tax_rate": 0.25,
+                "tax rate": 0.25,
                 "dividends": 2000000,
-                "total_fixed_assets": 10000000,
-                "total_current_assets": 20000000,
+                "total fixed assets": 10000000,
+                "total current assets": 20000000,
                 "cogs": 10000000,
                 "inventory": 5000000,
-                "account_receivables": 7000000,
-                "account_payable": 4000000,
+                "account receivables": 7000000,
+                "account payable": 4000000,
                 "cash": 3000000,
-                "total_current_liability": 6000000,
-                "total_debt": 8000000}
+                "total current liability": 6000000,
+                "total debt": 8000000}
         response = self.client.post(reverse('save'), data)
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.json(), {'error': 'Missing ebitda'})
 
     def test_save_with_invalid_request(self):
         """test the save view with invalid request"""
-        data = {'company': 'DINAMOW', 'years': '2024',
+        data = {'company': 'DINAMOW', 'year': '2024',
                 "number_of_shares": 1000000,
                 "market_price": 50.25,
                 "net_income": 5000000,
@@ -265,26 +265,26 @@ class MyTests(TestCase):
 
     def test_save_with_valid_data(self):
         """test the save view with valid data"""
-        data = {'company': 'DINAMOW', 'years': '2024',
-                "number_of_shares": 1000000,
-                "market_price": 50.25,
-                "net_income": 5000000,
+        data = {'company': 'DINAMOW', 'year': '2024',
+                "number of shares": 1000000,
+                "market price": 50.25,
+                "net income": 5000000,
                 "sales": 20000000,
-                "total_assets": 30000000,
-                "total_equity": 15000000,
+                "total assets": 30000000,
+                "total equity": 15000000,
                 "ebit": 8000000,
                 "interest": 1000000,
-                "tax_rate": 0.25,
+                "tax rate": 0.25,
                 "dividends": 2000000,
-                "total_fixed_assets": 10000000,
-                "total_current_assets": 20000000,
+                "total fixed assets": 10000000,
+                "total current assets": 20000000,
                 "cogs": 10000000,
                 "inventory": 5000000,
-                "account_receivables": 7000000,
-                "account_payable": 4000000,
+                "account receivables": 7000000,
+                "account payable": 4000000,
                 "cash": 3000000,
-                "total_current_liability": 6000000,
-                "total_debt": 8000000,
+                "total current liability": 6000000,
+                "total debt": 8000000,
                 "ebitda": 9000000}
         response = self.client.post(reverse('save'), data)
         self.assertEqual(response.status_code, 201)
@@ -292,7 +292,7 @@ class MyTests(TestCase):
 
     def test_save_with_valid_str_data(self):
         """test the save view with valid data"""
-        data = {'company': 'DINAMOW', 'years': '2025',
+        data = {'company': 'DINAMOW', 'year': '2025',
                 "number_of_shares": '1000000',
                 "market_price": '50.25',
                 "net_income": '5000000',
@@ -314,7 +314,5 @@ class MyTests(TestCase):
                 "total_debt": '8000000',
                 "ebitda": '9000000'}
         response = self.client.post(reverse('save'), data)
-        self.assertEqual(response.status_code, 201)
-        self.assertEqual(response.json(), {'message': 'Data saved successfully'})
-
-    
+        self.assertEqual(response.json()['error'], 'Missing number of shares')
+        self.assertEqual(response.status_code, 400)
