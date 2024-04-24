@@ -1,0 +1,38 @@
+<!-- other_template.html -->
+{% extends 'base.html' %}
+
+{% block extra_head %}
+    {{ block.super }}
+    {% load static %}
+    <link rel="stylesheet" href="{% static "css/one.css" %}">
+    <script src="{% static 'js/one.js' %}"></script>
+{% endblock %}
+
+{% block content_above_image %}
+    <div class="content-above-image">
+        <h1>Welcome to Our WebApplication</h1>
+        <h2>Ratios Calculator</h2>
+        <p id="para_before_img">This app will automate the calculation of the financial ratios.</p>
+    </div>
+{% endblock %}
+
+{% block content %}
+<h4>To get one year ratios, please select the company first, then the year</h4>
+
+<form method="POST" action="{% url 'one_year' %}">
+    {% csrf_token %}
+    <label for="company">Company:</label>
+    <select name="company" id="company">
+        <option value="" disabled selected hidden>Select company</option> <!-- Placeholder option -->
+        {% for company in data %}
+            <option value="{{ company.company }}">{{ company.company }}</option>
+        {% endfor %}
+    </select>
+    <label for="year">Year:</label>
+    <select name="year" id="year" disabled>
+        <option value="" disabled selected hidden>Select year</option> <!-- Placeholder option -->
+    </select>
+    <input type="submit" value="Submit">
+</form>
+
+{% endblock %}
