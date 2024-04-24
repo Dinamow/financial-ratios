@@ -1,4 +1,5 @@
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseBadRequest
+from django.shortcuts import render
 from .models import Engine
 import re
 
@@ -7,6 +8,23 @@ ENGINE = Engine()
 # Create your views here.
 def testing(request):
     return JsonResponse({'foo': 'bar'}, status=200)
+
+def landing(request):
+    """the landing page endpoint"""
+    if request.method != 'GET':
+        return JsonResponse(
+            {'error': 'GET request required'},
+            status=400)
+    return render(request, 'landing.html')
+
+def one_year(request):
+    if request.method != 'GET':
+        return HttpResponseBadRequest('GET request required')
+    return render(request, 'one_year.html',
+                  context={"data": ENGINE.get_dates()})
+
+def compare(request):
+    pass
 
 def dates(request):
     if request.method != 'GET':
