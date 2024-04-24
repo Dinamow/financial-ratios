@@ -1,5 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Oswald:wght@200..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+    font-family: "Kanit", sans-serif;
+}
+
 h1, h2, h3 {
-    font-family: 'Arial', sans-serif; /* Apply the same font family to headings */
     font-weight: bold; /* Adjust the font weight for headings */
     color: #2D3047; /* Set the heading color */
     text-align: center;
@@ -12,7 +17,6 @@ h1, h2, h3 {
     font-weight: normal;
     line-height: 1.5;
     margin-bottom: 15px;
-    font-family: 'Arial', sans-serif;
 }
 
 nav {
@@ -37,6 +41,11 @@ nav {
 
     ul li {
         margin-right: 10px;
+        :hover:not(.logo_a) {
+            background-color: #3D4160;
+            border-radius: 10px;
+            transition: all 0.3s ease-in-out;
+        }
     }
 
     ul li a {
@@ -44,30 +53,38 @@ nav {
         text-decoration: none;
         padding: 10px;
     }
-
-    ul :hover {
-        background-color: #3D4160;
-    }
 }
 
 #logo_li {
-    margin-right: 465px;
-}
-
-#logo_img {
-    max-width: 100%;
-    height: auto;
-    max-height: 50px;
+    margin-right: 635px;
+    margin-left: 10px;
+    :hover {
+        transform: scale(1.2);
+        transition: all 0.3s ease-in-out;
+    }
+    img {
+        max-width: 100%;
+        height: auto;
+        max-height: 50px;
+    
+    }
+    @media screen and (max-width: 1024px){
+        margin-right: 200px;
+    }
+    @media screen and (max-width: 768px){
+        margin-right: 100px;
+    }
 }
 
 .above-image {
     /* background-image: url("../img/landing-team.jpg"); */
     background-image: url("../img/amoc.jpg");
     background-size: cover;
+    background-repeat: no-repeat;
     position: relative;
     background-position: center;
-    height: 600px;
-    border-radius: 5px;
+    height: 800px;
+    border-radius: 25px;
 }
 
 .above-image img {
