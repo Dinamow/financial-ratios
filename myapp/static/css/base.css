@@ -1,0 +1,89 @@
+h1, h2, h3 {
+    font-family: 'Arial', sans-serif; /* Apply the same font family to headings */
+    font-weight: bold; /* Adjust the font weight for headings */
+    color: #2D3047; /* Set the heading color */
+    text-align: center;
+}
+
+#para_before_img {
+    text-align: center;
+    color: #2D3047;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    font-family: 'Arial', sans-serif;
+}
+
+nav {
+    background-color: #2D3047;
+    color: #fff;
+    padding: 20px 0;
+    border-radius: 10px;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+/* fix the navbar style */
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav ul :hover {
+    background-color: #3D4160;
+}
+
+nav ul li {
+    margin-right: 10px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+}
+
+#logo_li {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#logo_img {
+    max-width: 100%;
+    height: auto;
+    max-height: 50px;
+}
+
+.above-image {
+    background-image: url("../img/landing-team.jpg");
+    background-size: cover;
+    position: relative;
+    background-position: center;
+    height: 600px;
+    border-radius: 5px;
+}
+
+.above-image img {
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+.content {
+    position: absolute;
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 1.5;
+    bottom: -400px;
+    left: 25%;
+    padding: 20px;
+    background-color: rgba(61, 65, 96, 0.9);
+    border-radius: 10px;
+    color: #fff;
+}

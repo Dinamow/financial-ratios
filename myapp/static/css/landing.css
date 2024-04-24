@@ -1,0 +1,17 @@
+h1, h2, h3 {
+    font-family: 'Arial', sans-serif; /* Apply the same font family to headings */
+    font-weight: bold; /* Adjust the font weight for headings */
+    color: #2D3047; /* Set the heading color */
+    text-align: center;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 800px;
+    /* center this */
+}
