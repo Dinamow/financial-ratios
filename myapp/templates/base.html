@@ -15,8 +15,10 @@
 <nav>
     <ul>
         <li id="logo_li"><a href="{% url 'landing' %}"><img id="logo_img" src={% static 'img/logo-removebg-preview.png' %} alt="logo.jpg"></a></li>
-        <li><a href="{% url 'one_year' %}">One year Ratios</a></li>
-        <li><a href="{% url 'compare' %}">Compare two years</a></li>
+        <li><a href="{% url 'landing' %}">Home</a></li>
+        <li><a href="{% url 'one_year' %}">View Ratios</a></li>
+        <li><a href="{% url 'compare' %}">Compare Ratios</a></li>
+        <li><a href="{% url 'create' %}">Add Company</a></li>
     </ul>
 </nav>
 

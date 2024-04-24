@@ -24,34 +24,34 @@ nav {
     top: 0;
     width: 100%;
     z-index: 1000;
-}
-/* fix the navbar style */
-nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+    justify-content: space-between; /* Adjusted */
 
-nav ul :hover {
-    background-color: #3D4160;
-}
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+    }
 
-nav ul li {
-    margin-right: 10px;
-}
+    ul li {
+        margin-right: 10px;
+    }
 
-nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    padding: 10px;
+    ul li a {
+        color: #fff;
+        text-decoration: none;
+        padding: 10px;
+    }
+
+    ul :hover {
+        background-color: #3D4160;
+    }
 }
 
 #logo_li {
-    display: inline-block;
-    vertical-align: middle;
+    margin-right: 465px;
 }
 
 #logo_img {
@@ -61,7 +61,8 @@ nav ul li a {
 }
 
 .above-image {
-    background-image: url("../img/landing-team.jpg");
+    /* background-image: url("../img/landing-team.jpg"); */
+    background-image: url("../img/amoc.jpg");
     background-size: cover;
     position: relative;
     background-position: center;
@@ -72,18 +73,4 @@ nav ul li a {
 .above-image img {
     max-width: 100%;
     border-radius: 10px;
-}
-
-.content {
-    position: absolute;
-    font-family: 'Arial', sans-serif;
-    font-size: 16px;
-    font-weight: normal;
-    line-height: 1.5;
-    bottom: -400px;
-    left: 25%;
-    padding: 20px;
-    background-color: rgba(61, 65, 96, 0.9);
-    border-radius: 10px;
-    color: #fff;
 }
