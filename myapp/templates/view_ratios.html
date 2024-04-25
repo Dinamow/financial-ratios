@@ -1,56 +1,65 @@
-<!-- view_ratios.html -->
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>RatioCalc - View Ratios</title>
+{% extends 'base.html' %}
+{% block extra_head %}
+    {{ block.super }}
+        {% load static %}
+        <script src="{% static "js/view_ratios.js" %}"></script>
+        <link rel="stylesheet" href="{% static "css/view_ratios.css" %}">
         <script>
-            var companyData = {{ data|safe }};
+            var companyData = {{ dates|safe }};
         </script>
-        <script src="../static/js/view_ratios.js"></script>
-        <link rel="stylesheet" href="../static/css/global.css">
-        <link rel="stylesheet" href="../static/css/view_ratios.css">
-        <link rel="icon" href="../static/img/rc-logo.png">
-    </head>
-    <body>
-        <nav>
-            <img src="../static/img/rc-logo.png" alt="RatioCalc Logo">
-            <ul>
-                <li><a href="landing">Home</a></li>
-                <li><a href="view_ratios">View Ratios</a></li>
-                <li><a href="compare_ratios">Compare Ratios</a></li>
-                <li><a href="add_company">Add Company</a></li>
-            </ul>
-        </nav>
-        <main>
-            <div class="selection">
-                <form id="ratios-form" action="">
-                    <label for="company">Company:</label>
-                    <select name="company" id="company" required>
-                        <option value="" disabled selected hidden>Company</option>
-                        {% for item in data %}
-                            <option value="{{ item.company }}">{{ item.company }}</option>
-                        {% endfor %}
-                    </select>
-                    <label for="year">Year:</label>
-                    <select name="year" id="year" required>
-                        <option value="" disabled selected hidden>Year</option>
-                    </select>
-                    <label for="type">Type:</label>
-                    <select name="type" id="type" required>
-                        <option value="" disabled selected hidden>Type</option>
-                        <option value="liquidity">Liquidity</option>
-                        <option value="leverage">Leverage</option>
-                        <option value="assetsto">Assets Turnover</option>
-                        <option value="profitability">Profitability</option>
-                        <option value="marketvalue">Market Value</option>
-                    </select>
-                    <button type="submit">View Ratios</button>
-                </form>
-            </div>            
-            <div class="results">
-                <h2>Results</h2>
+    {% endblock %}
+{% block content %}
+    <main>
+        <div class="selection">
+            <form id="ratios-form" action="">
+                <label for="company">Company:</label>
+                <select name="company" id="company" required>
+                    <option value="" disabled selected hidden>Company</option>
+                    {% for item in dates %}
+                        <option value="{{ item.company }}">{{ item.company }}</option>
+                    {% endfor %}
+                </select>
+                <label for="year">Year:</label>
+                <select name="year" id="year" required>
+                    <option value="" disabled selected hidden>Year</option>
+                </select>
+                <label for="type">Type:</label>
+                <select name="type" id="type" required>
+                    <option value="" disabled selected hidden>Type</option>
+                    <option value="liquidity">Liquidity</option>
+                    <option value="leverage">Leverage</option>
+                    <option value="assetsto">Assets Turnover</option>
+                    <option value="profitability">Profitability</option>
+                    <option value="marketvalue">Market Value</option>
+                </select>
+                <button type="submit">View Ratios</button>
+            </form>
+        </div>
+        <div class="results">
+            {% if request.GET.year %}
+                <h2>{{ request.GET.company }} - {{ request.GET.year }}</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ratio</th>
+                            <th>Formula</th>
+                            <th>Numbers</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                {% for i in result %}
+                    <tr>
+                        <td>{{ i.type }}</td>
+                        <td>{{ i.formula }}</td>
+                        <td>{{ i.numbers }}</td>
+                        <td>{{ i.value }}</td>
+                    </tr>
+                {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+            <h2>Example</h2>
                 <table>
                     <thead>
                         <tr>
@@ -99,7 +108,7 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
-        </main>
-    </body>
-</html>
+            {% endif %}
+        </div>
+    </main>
+{% endblock %}
