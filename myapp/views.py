@@ -15,16 +15,28 @@ def landing(request):
         return JsonResponse(
             {'error': 'GET request required'},
             status=400)
-    return render(request, 'landing.html')
+    return render(request, 'index.html')
 
-def one_year(request):
+def view_ratios(request):
     if request.method != 'GET':
         return HttpResponseBadRequest('GET request required')
-    return render(request, 'one_year.html',
+    print({"data": ENGINE.get_dates()})
+    return render(request, 'view_ratios.html',
                   context={"data": ENGINE.get_dates()})
 
-def compare(request):
-    pass
+def compare_ratios(request): # Not functional yet
+    if request.method != 'GET':
+        return HttpResponseBadRequest('GET request required')
+    return render(request, 'compare_ratios.html',
+                  context={"data": ENGINE.get_dates()})
+
+def add_company(request): # Not functional yet
+    if request.method != 'GET':
+        return JsonResponse(
+            {'error': 'GET request required'},
+            status=400)
+    return render(request, 'add_company.html',
+                  context={"data": ENGINE.get_dates()})
 
 def dates(request):
     if request.method != 'GET':

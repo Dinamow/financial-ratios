@@ -1,24 +1,49 @@
-@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Oswald:wght@200..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
-body {
-    font-family: "Kanit", sans-serif;
-}
-
-h1, h2, h3 {
-    font-weight: bold; /* Adjust the font weight for headings */
-    color: #2D3047; /* Set the heading color */
-    text-align: center;
-}
-
-.content {
-    position: absolute;
-    color: white;
-    top: 60%;
-    left: 39%;
-    padding: 20px;
-    margin: auto;
-    max-width: 800px;
-    background-color: rgba(45, 48, 71, 0.8);
+.presentation {
+    position: relative;
+    width: 100%;
+    min-height: calc(100vh - 130px);
+    background-image: url(../img/amoc-hero.jpg);
+    background-size: cover;
+    background-position: center;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+
+    .presentation-data {
+        width: calc(100% - 1200px);
+        margin: auto;
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        min-width: 500px;
+        position: relative;
+        transition: all 0.3s ease;
+        text-align: center;
+    
+        &:hover {
+            transform: scale(1.1);
+            transition: all 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+    
+        hr {
+            width: 100%;
+            margin: 10px 0;
+            background-color: #464646;
+            height: 1px;
+        }
+    
+        .team-members {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            place-items: center;
+        }
+    }
 }

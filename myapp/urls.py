@@ -4,8 +4,10 @@ from .views import *
 urlpatterns = [
     path('test/', testing, name='testing'),
     path('', landing, name='landing'),
-    path('one', one_year, name='one_year'),
-    path('Compare', compare, name='compare'),
+    path('landing', landing, name='landing'),
+    path('view_ratios', view_ratios, name='view_ratios'),
+    path('compare_ratios', compare_ratios, name='compare_ratios'),
+    path('add_company', add_company, name='add_company'),
     path('dates', dates, name='dates'),
     path('balance', balance, name='balance'),
     path('create', create, name='create'),
