@@ -792,7 +792,7 @@ class Engine(Lequidity, Leveraging, AssetsTO, Profitability, MarketValue):
         return {"message": "Data saved successfully"}
 
     def get_raw(self):
-        data = ['company', 'year']
+        data = []
         for i in self.__RAWDATA:
             if i != 'eps' and i != 'book value' and i != 'dividansRatio':
                 data.append(i)
