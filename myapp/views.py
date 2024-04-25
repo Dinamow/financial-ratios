@@ -20,14 +20,38 @@ def landing(request):
 def view_ratios(request):
     if request.method != 'GET':
         return HttpResponseBadRequest('GET request required')
+    year = [request.GET.get('year')]
+    type = request.GET.get('type')
+    company = request.GET.get('company')
+    
+    if not year or not type or not company:
+        return render(request, 'view_ratios.html',
+                    context={"dates": ENGINE.get_dates()})
+
+    resp = ENGINE.get_type(type, year, company)
+    if 'error' in resp.keys():
+        return HttpResponseBadRequest(resp['error'])
     return render(request, 'view_ratios.html',
-                  context={"data": ENGINE.get_dates()})
+                  context=resp)
 
 def compare_ratios(request): # Not functional yet
     if request.method != 'GET':
         return HttpResponseBadRequest('GET request required')
+    
+    years = [request.GET.get('year1'), request.GET.get('year2')]
+    type = request.GET.get('type')
+    company: str = request.GET.get('company')
+
+    if not years or not type or not company:
+        return render(request, 'compare_ratios.html',
+                      context={"dates": ENGINE.get_dates()})
+    
+    resp = ENGINE.get_type(type, years, company)
+    if 'error' in resp.keys():
+        return HttpResponseBadRequest(resp['error'])
     return render(request, 'compare_ratios.html',
-                  context={"data": ENGINE.get_dates()})
+                  context=resp)
+
 
 def add_company(request): # Not functional yet
     if request.method != 'GET':

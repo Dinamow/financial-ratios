@@ -746,9 +746,10 @@ class Engine(Lequidity, Leveraging, AssetsTO, Profitability, MarketValue):
             return {"error": "Please provide years"}
 
         type_ratios = {}
+        type_ratios["dates"] = self.get_dates()
         if len(years) == 1:
             year = years[0]
-            type_ratios[year] = []
+            type_ratios['result'] = []
             for ratio in ratios:
                 ratio_info = {
                     'type': ratio, 'value': self.get_date_ratios(
@@ -757,15 +758,14 @@ class Engine(Lequidity, Leveraging, AssetsTO, Profitability, MarketValue):
                         year, company)[ratio]['formula']['rule'],
                     'numbers': self.get_date_ratios(
                         year, company)[ratio]['formula']['numbers']}
-                type_ratios[year].append(ratio_info)
+                type_ratios['result'].append(ratio_info)
         else:
-            type_ratios = {
-                'ratios': ratios,
-            }
-            for year in years:
-                type_ratios[year] = {
+            type_ratios['ratios'] = ratios,
+            type_ratios['ratios'] = type_ratios['ratios'][0]
+            for year in range(len(years)):
+                type_ratios[f"result{year+1}"] = {
                     ratio.replace(' ', '_'): self.get_date_ratios(
-                        year, company)[ratio]['value'] for ratio in ratios}
+                        years[year], company)[ratio]['value'] for ratio in ratios}
         return type_ratios
     
     def save_ratios(self, data: dict):
@@ -796,4 +796,4 @@ class Engine(Lequidity, Leveraging, AssetsTO, Profitability, MarketValue):
         for i in self.__RAWDATA:
             if i != 'eps' and i != 'book value' and i != 'dividansRatio':
                 data.append(i)
-        return {'data': data}
+        return {'dates': data}
