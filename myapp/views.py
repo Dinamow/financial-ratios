@@ -20,7 +20,6 @@ def landing(request):
 def view_ratios(request):
     if request.method != 'GET':
         return HttpResponseBadRequest('GET request required')
-    print({"data": ENGINE.get_dates()})
     return render(request, 'view_ratios.html',
                   context={"data": ENGINE.get_dates()})
 
@@ -36,7 +35,7 @@ def add_company(request): # Not functional yet
             {'error': 'GET request required'},
             status=400)
     return render(request, 'add_company.html',
-                  context={"data": ENGINE.get_dates()})
+                  context=ENGINE.get_raw())
 
 def dates(request):
     if request.method != 'GET':
