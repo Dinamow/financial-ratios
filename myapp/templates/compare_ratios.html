@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="{% static "css/compare_ratios.css" %}">
         <script>
             var companyData = {{ dates|safe }};
+            var result = {{ result|safe }};
         </script>
     {% endblock %}
 {% block content %}
@@ -40,68 +41,42 @@
             </form>
         </div>
         <div class="results">
-            {% if ratios %}
-                <h2>Results</h2>
-                <table>
-                    <thead>
+            <h2>{{ request.GET.company|title }} - {{ request.GET.year1 }} x {{ request.GET.year2 }} - {{ request.GET.type|title }}</h2>
+            <table>
+                <thead>
                     <tr>
-                        <th>Ratio</th>
-                        <th>{{request.GET.year1}}</th>
-                        <th>{{request.GET.year2}}</th>
+                        <th>Ratios</th>
+                        <th>{{ request.GET.year1 }}</th>
+                        <th>{{ request.GET.year2 }}</th>
                     </tr>
-                    </thead>
-                    <tbody>
-                    {% for i in ratios %}
+                </thead>
+                <tbody>
+                    {% for ratio in result %}
                         <tr>
-                            <td>{{ i }}</td>
-                            <td>{{ result1.geti }}</td> not working
-                            <td>{{ result2.geti }}</td>
+                            <td class="comparison-year" id="{{ ratio.name }}" onclick="showPopup('{{ ratio.year_1.formula }}', '{{ ratio.year_1.numbers }}', '{{ ratio.year_2.formula }}', '{{ ratio.year_2.numbers }}', '{{ ratio.year_1.value }}', '{{ ratio.year_2.value }}', '{{ ratio.year_1.status }}', '{{ ratio.year_2.status }}')">{{ ratio.name }}</td>
+                            <td class="{{ ratio.year_1.status }}">{{ ratio.year_1.value }}</td>
+                            <td class="{{ ratio.year_2.status }}">{{ ratio.year_2.value }}</td>
                         </tr>
                     {% endfor %}
-            {% else %}
-                <h2>Example<h2>
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Ratio</th>
-                        <th>Year 1 Value</th>
-                        <th>Year 2 Value</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>Current Ratio</td>
-                        <td>1.5</td>
-                        <td>2.4</td>
-                    </tr>
-                    <tr>
-                        <td>Quick Ratio</td>
-                        <td>1.2</td>
-                        <td>2.7</td>
-                    </tr>
-                    <tr>
-                        <td>Debt Ratio</td>
-                        <td>0.6</td>
-                        <td>0.1</td>
-                    </tr>
-                    <tr>
-                        <td>Profit Margin</td>
-                        <td>0.2</td>
-                        <td>0.2</td>
-                    </tr>
-                    <tr>
-                        <td>Return on Assets</td>
-                        <td>0.1</td>
-                        <td>0.2</td>
-                    </tr>
-                    <tr>
-                        <td>Return on Equity</td>
-                        <td>0.15</td>
-                        <td>0.12</td>
-                    </tr>
-                    </tbody>
-                </table>
-            {% endif %}
+                </tbody>
+            </table>
         </div>
     </main>
+
+    <div class="popup" id="popup">
+        <button class="close-button" onclick="closePopup()">x</button>
+        <h2>Detailed Comparison</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>{{ request.GET.year1 }}</th>
+                    <th>{{ request.GET.year2 }}</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div class="popup-overlay" id="popup-overlay"></div>
 {% endblock %}

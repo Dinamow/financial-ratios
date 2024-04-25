@@ -3,6 +3,17 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log("Company data: ", companyData);
     var companySelect = document.getElementById("company");
     var yearSelect = document.getElementById("year");
+    var resultsElement = document.querySelector(".results");
+
+    var urlSearchParams = new URLSearchParams(window.location.search);
+    var hasParameters = urlSearchParams.has('company');
+
+    if (!hasParameters) {
+        console.log("No parameters found in URL");
+        resultsElement.style.display = "none";
+    } else {
+        console.log("Parameters found in URL");
+    }
 
     companySelect.addEventListener("change", function() {
         var selectedCompany = companySelect.value;

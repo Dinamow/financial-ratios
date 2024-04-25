@@ -3,9 +3,15 @@
     {{ block.super }}
         {% load static %}
         <link rel="stylesheet" href="{% static "css/add_company.css" %}">
+        <script src="{% static "js/add_company.js" %}"></script>
     {% endblock %}
 {% block content %}
         <main>
+            {% if added %}
+                <div class="added-alert">
+                    <h2>Company Added Successfully!</h2>
+                </div>
+            {% endif %}
             <form action="save" method="POST">
                 {% csrf_token %}
                 <h1>Add Company</h1>
@@ -34,9 +40,8 @@
                         {% endif %}
                     {% endfor %}
                 </div>
-                <hr>
                 <div class="buttons-part">
-                    <button type="reset" class="reset-button">Reset Form</button>
+                    <button type="reset" class="reset-button">Reset</button>
                     <button type="submit">Add Company</button>
                 </div>
             </form>

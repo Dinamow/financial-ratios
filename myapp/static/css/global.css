@@ -120,17 +120,45 @@ table {
             text-align: left;
             border-bottom: 2px solid #ddd;
         }
-        
     }
 
     tbody {
         td {
             padding: 10px;
             border-bottom: 1px solid #ddd;
+
+            button {
+                color: #007bff;
+                background-color: white;
+                padding: 0;
+                /* margin-left: 40%; */
+                width: 30px;
+                height: 30px;
+                font-weight: bold;
+                font-size: 22px;
+                border-radius: 50%;
+    
+                &:hover {
+                    color: white;
+                    transition: all 0.3s ease;
+                }
+            }
         }
 
         tr:nth-child(even) {
             background-color: #f9f9f9;
+        }
+
+        .higher {
+            color: green;
+            font-size: large;
+            align-items: center;
+        }
+
+        .lower {
+            color : red;
+            font-size: large;
+            align-items: center;
         }
     }
 }

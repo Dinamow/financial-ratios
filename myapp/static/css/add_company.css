@@ -7,6 +7,30 @@ main {
     align-items: center;
     padding: 0 20px;
 
+    .added-alert {
+        background-color: #b7e6c2;
+        padding: 10px 20px;
+        position: absolute;
+        top: 15%;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 1px solid #91d6a1;
+        width: 90%;
+        z-index: 1000;
+        border-radius: 5px;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+        opacity: 1;
+        transition: opacity 0.3s ease;
+    
+        h2 {
+            margin: 0;
+        }
+    }
+
+    .hidden {
+        opacity: 0;
+    }
+
     h1 {
         font-weight: bold;
         color: #377eca;
@@ -40,3 +64,4 @@ main {
         }
     }
 }
+

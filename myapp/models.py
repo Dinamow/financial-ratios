@@ -736,6 +736,8 @@ class Engine(Lequidity, Leveraging, AssetsTO, Profitability, MarketValue):
     def get_type(self, type, years, company):
         """return type"""
 
+        type = type.lower()
+
         if type not in self.__RATIOSLIST.keys():
             return {"error": "Invalid type",
                     "types": self.get_values()}
@@ -746,7 +748,8 @@ class Engine(Lequidity, Leveraging, AssetsTO, Profitability, MarketValue):
             return {"error": "Please provide years"}
 
         type_ratios = {}
-        type_ratios["dates"] = self.get_dates()
+        type_ratios['dates'] = self.get_dates()
+        type_ratios['result'] = []
         if len(years) == 1:
             year = years[0]
             type_ratios['result'] = []
@@ -760,12 +763,26 @@ class Engine(Lequidity, Leveraging, AssetsTO, Profitability, MarketValue):
                         year, company)[ratio]['formula']['numbers']}
                 type_ratios['result'].append(ratio_info)
         else:
-            type_ratios['ratios'] = ratios,
-            type_ratios['ratios'] = type_ratios['ratios'][0]
-            for year in range(len(years)):
-                type_ratios[f"result{year+1}"] = {
-                    ratio.replace(' ', '_'): self.get_date_ratios(
-                        years[year], company)[ratio]['value'] for ratio in ratios}
+            for ratio in ratios:
+                ratio_info = {
+                        'name': ratio,
+                }
+                for i, year in enumerate(years, start=1):
+                    ratio_info[f"year_{i}"] = {
+                        'value': self.get_date_ratios(year, company)[ratio]['value'],
+                        'formula': self.get_date_ratios(year, company)[ratio]['formula']['rule'],
+                        'numbers': self.get_date_ratios(year, company)[ratio]['formula']['numbers']
+                    }
+
+                if ratio_info['year_1']['value'] < ratio_info['year_2']['value']:
+                    ratio_info['year_2']['status'] = 'higher'
+                elif ratio_info['year_1']['value'] > ratio_info['year_2']['value']:
+                    ratio_info['year_1']['status'] = 'lower'
+                else:
+                    ratio_info['year_1']['status'] = 'equal'
+                    ratio_info['year_2']['status'] = 'equal'
+
+                type_ratios['result'].append(ratio_info)
         return type_ratios
     
     def save_ratios(self, data: dict):
@@ -796,4 +813,4 @@ class Engine(Lequidity, Leveraging, AssetsTO, Profitability, MarketValue):
         for i in self.__RAWDATA:
             if i != 'eps' and i != 'book value' and i != 'dividansRatio':
                 data.append(i)
-        return {'dates': data}
+        return data

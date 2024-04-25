@@ -174,11 +174,26 @@ class MyTests(TestCase):
         ca = self.engine.get_fair_value_of_stock_value()
         self.assertNotEqual(ca, 0.0)
 
+    def test_get_date_ratios(self):
+        """test the balance view"""
+        year = '2023'
+        company = 'DINAMOW'
+        ca = self.engine.get_date_ratios(year, company)
+        self.assertNotEqual(ca, 0.0)
+
     def test_get_type(self):
         """test the balance view"""
         years = ['2023', '2022']
         type = 'Liquidity'
-        sample = self.engine.get_type(type, years, company='DINAMOW')
+        ca = self.engine.get_type(type, years, company='DINAMOW')
+        self.assertNotEqual(ca, 0.0)
+
+    def test_get_type(self):
+        """test the balance view"""
+        years = ['2023', '2022']
+        type = 'Liquidity'
+        ca = self.engine.get_type(type, years, company='DINAMOW')
+        self.assertNotEqual(ca, 0.0)
 
     def test_save_without_data(self):
         """test the save view without data"""

@@ -29,12 +29,13 @@ def view_ratios(request):
                     context={"dates": ENGINE.get_dates()})
 
     resp = ENGINE.get_type(type, year, company)
+
     if 'error' in resp.keys():
         return HttpResponseBadRequest(resp['error'])
     return render(request, 'view_ratios.html',
                   context=resp)
 
-def compare_ratios(request): # Not functional yet
+def compare_ratios(request):
     if request.method != 'GET':
         return HttpResponseBadRequest('GET request required')
     
@@ -44,22 +45,23 @@ def compare_ratios(request): # Not functional yet
 
     if not years or not type or not company:
         return render(request, 'compare_ratios.html',
-                      context={"dates": ENGINE.get_dates()})
+                      context={"dates": ENGINE.get_dates(), 'result': {}})
     
     resp = ENGINE.get_type(type, years, company)
+
     if 'error' in resp.keys():
         return HttpResponseBadRequest(resp['error'])
     return render(request, 'compare_ratios.html',
                   context=resp)
 
 
-def add_company(request): # Not functional yet
+def add_company(request):
     if request.method != 'GET':
         return JsonResponse(
             {'error': 'GET request required'},
             status=400)
     return render(request, 'add_company.html',
-                  context=ENGINE.get_raw())
+                  context={'dates': ENGINE.get_raw()})
 
 def dates(request):
     if request.method != 'GET':
@@ -90,7 +92,7 @@ def balance(request):
         return JsonResponse(
             {'error': 'Missing company'},
             status=400)
-    
+
     company = company.replace('_', ' ')
     years = years.split(',')
 
@@ -155,4 +157,4 @@ def save(request):
     resp = ENGINE.save_ratios(data)
     if 'error' in resp.keys():
         return JsonResponse(resp, status=400)
-    return JsonResponse(resp, status=201)
+    return render(request, 'add_company.html', context={'dates': ENGINE.get_raw(), 'added': 'true'})

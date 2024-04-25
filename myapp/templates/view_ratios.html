@@ -36,79 +36,27 @@
             </form>
         </div>
         <div class="results">
-            {% if request.GET.year %}
-                <h2>{{ request.GET.company }} - {{ request.GET.year }}</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Ratio</th>
-                            <th>Formula</th>
-                            <th>Numbers</th>
-                            <th>Value</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                {% for i in result %}
+            <h2>{{ request.GET.company|title }} - {{ request.GET.year }} - {{ request.GET.type|title }}</h2>
+            <table>
+                <thead>
                     <tr>
-                        <td>{{ i.type }}</td>
-                        <td>{{ i.formula }}</td>
-                        <td>{{ i.numbers }}</td>
-                        <td>{{ i.value }}</td>
+                        <th>Ratio</th>
+                        <th>Formula</th>
+                        <th>Numbers</th>
+                        <th>Value</th>
                     </tr>
-                {% endfor %}
-                    </tbody>
-                </table>
-            {% else %}
-            <h2>Example</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Ratio</th>
-                            <th>Formula</th>
-                            <th>Numbers</th>
-                            <th>Value</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Current Ratio</td>
-                            <td>Current Assets / Current Liabilities</td>
-                            <td>1,000,000 / 500,000</td>
-                            <td>1.5</td>
-                        </tr>
-                        <tr>
-                            <td>Quick Ratio</td>
-                            <td>(Current Assets - Inventory) / Current Liabilities</td>
-                            <td>(1,000,000 - 200,000) / 500,000</td>
-                            <td>1.2</td>
-                        </tr>
-                        <tr>
-                            <td>Debt Ratio</td>
-                            <td>Total Liabilities / Total Assets</td>
-                            <td>1,000,000 / 2,000,000</td>
-                            <td>0.6</td>
-                        </tr>
-                        <tr>
-                            <td>Profit Margin</td>
-                            <td>Net Income / Sales</td>
-                            <td>200,000 / 1,000,000</td>
-                            <td>0.2</td>
-                        </tr>
-                        <tr>
-                            <td>Return on Assets</td>
-                            <td>Net Income / Total Assets</td>
-                            <td>200,000 / 2,000,000</td>
-                            <td>0.1</td>
-                        </tr>
-                        <tr>
-                            <td>Return on Equity</td>
-                            <td>Net Income / Shareholder's Equity</td>
-                            <td>200,000 / 1,000,000</td>
-                            <td>0.15</td>
-                        </tr>
-                    </tbody>
-                </table>
-            {% endif %}
+                </thead>
+                <tbody>
+            {% for i in result %}
+                <tr>
+                    <td>{{ i.type }}</td>
+                    <td>{{ i.formula }}</td>
+                    <td>{{ i.numbers }}</td>
+                    <td>{{ i.value }}</td>
+                </tr>
+            {% endfor %}
+                </tbody>
+            </table>
         </div>
     </main>
 {% endblock %}
