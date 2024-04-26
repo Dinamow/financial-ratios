@@ -10,25 +10,8 @@ This project aims to automate the calculation of financial ratios including Liqu
 
 ## Features
 
-1. **Comparison Between Two Years:**
-   - Users can compare financial ratios between two years.
-   - Example Format:
 
-     ```json
-     {
-         "ratios": ["current ratio", "quick ratio"],
-         "2023": {
-             "current ratio": 1.5,
-             "quick ratio": 1.5
-         },
-         "2024": {
-             "current ratio": 1.5,
-             "quick ratio": 1.5
-         }
-     }
-     ```
-
-2. **Detailed View for One Year:**
+1. **Detailed View for One Year:**
    - Detailed breakdown of ratios for a single year.
    - Example Format:
 
@@ -47,7 +30,25 @@ This project aims to automate the calculation of financial ratios including Liqu
              "number": "1.5 / 1.0"
          }
      ]
-     ```
+    ```
+
+2. **Comparison Between Two Years:**
+   - Users can compare financial ratios between two years.
+   - Example Format:
+
+     ```json
+     {
+         "ratios": ["current ratio", "quick ratio"],
+         "2023": {
+             "current ratio": 1.5,
+             "quick ratio": 1.5
+         },
+         "2024": {
+             "current ratio": 1.5,
+             "quick ratio": 1.5
+         }
+     }
+    ```
 
 3. **Ratio Details View:**
    - Detailed view of a specific ratio for both years.
@@ -71,7 +72,7 @@ This project aims to automate the calculation of financial ratios including Liqu
              "numbers": "1.5 / 1.0"
          }
      }
-     ```
+    ```
 
 4. **Automated Calculation:**
    - Users can provide financial values with company and year, and the system will calculate all the ratios automatically.
