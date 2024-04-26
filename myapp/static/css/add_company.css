@@ -1,5 +1,4 @@
 main {
-    background-color: #eee;
     border-radius: 10px;
     min-height: calc(100vh - 130px);
     display: flex;
@@ -8,13 +7,13 @@ main {
     padding: 0 20px;
 
     .added-alert {
-        background-color: #b7e6c2;
+        background-color: black;
         padding: 10px 20px;
         position: absolute;
         top: 15%;
         left: 50%;
         transform: translateX(-50%);
-        border: 1px solid #91d6a1;
+        border: 1px solid black;
         width: 90%;
         z-index: 1000;
         border-radius: 5px;
@@ -33,7 +32,6 @@ main {
 
     h1 {
         font-weight: bold;
-        color: #377eca;
         text-align: center;
         font-size: 36px;
         padding-bottom: 25px;

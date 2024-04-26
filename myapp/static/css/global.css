@@ -2,18 +2,27 @@
 
 body {
     font-family: "Kanit", sans-serif;
-    background-color: #dadada;
+    background-color: #19181A;
 }
 
 h1, h2, h3 {
     font-weight: bold;
-    color: #377eca;
+    color: whitesmoke;
     text-align: center;
+
+    text-transform: uppercase;
+    font-family: verdana;
+    color: #f5f5f5;
+    text-shadow: 1px 1px 1px #919191,
+    1px 18px 6px rgba(16,16,16,0.4),
+    1px 22px 10px rgba(16,16,16,0.2),
+    1px 25px 35px rgba(16,16,16,0.2),
+    1px 30px 60px rgba(16,16,16,0.4);
 }
 
 nav {
     display: flex;
-    background-color: #007bff;
+    background-color: rgba(0, 0, 0, 0.521);
     color: #ffffff;
     padding: 0 25px;
     height: 100px;
@@ -49,7 +58,7 @@ nav {
                 border-radius: 10px;
                 transition: all 0.3s ease;
                 &:hover {
-                    color: #007bff;
+                    color: black;
                     transition: all 0.5s ease;
                     background-color: #e9e7f3;
                     box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
@@ -62,6 +71,7 @@ nav {
 label {
     font-size: 18px;
     margin-right: 10px;
+    color: whitesmoke;
 }
 
 select, input {
@@ -69,7 +79,7 @@ select, input {
     border-radius: 5px;
     font-size: 18px;
     margin-right: 15px;
-    border: 1px solid #007bff;
+    border: 1px solid black;
 
     &[type="text"] {
         width: 95%;
@@ -92,14 +102,14 @@ button {
     padding: 10px;
     border-radius: 5px;
     font-size: 18px;
-    background-color: #007bff;
+    background-color: black;
     color: #ffffff;
     border: none;
     cursor: pointer;
     box-shadow: rgba(0, 0, 0, 0.151) 0px 5px 15px;
     transition: all 0.3s ease;
     &:hover {
-        background-color: #0056b3;
+        background-color: darkslategray;
         transition: all 0.3s ease;
     }
 }
@@ -111,7 +121,7 @@ table {
     box-shadow: rgba(0, 0, 0, 0.096) 0px 5px 15px;
 
     thead {
-        background-color: #007bff;
+        background-color: black;
         color: white;
         font-size: 20px;
 
@@ -129,7 +139,7 @@ table {
 
             button {
                 color: #007bff;
-                background-color: white;
+                background-color: black;
                 padding: 0;
                 /* margin-left: 40%; */
                 width: 30px;
@@ -146,7 +156,13 @@ table {
         }
 
         tr:nth-child(even) {
-            background-color: #f9f9f9;
+            background-color: #19181A;
+            color: whitesmoke;
+        }
+        
+        tr:nth-child(odd) {
+            background-color: #19181A;
+            color: whitesmoke;
         }
 
         .higher {

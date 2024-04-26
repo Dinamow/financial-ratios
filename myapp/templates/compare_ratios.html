@@ -50,6 +50,16 @@
                         <th>{{ request.GET.year2 }}</th>
                     </tr>
                 </thead>
+                {% if not result %}
+        <style>
+            main {
+                background-image: url(../static/img/rc-logo-copy.png);
+                background-repeat: no-repeat;
+                background-position: center;
+                background-position-y: 20px;
+            }
+        </style>
+        {% endif %}
                 <tbody>
                     {% for ratio in result %}
                         <tr>
