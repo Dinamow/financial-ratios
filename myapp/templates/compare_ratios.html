@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block extra_head %}
+    {{ block.super }}
+        {% load static %}
+        <script src="{% static "js/compare_ratios.js" %}"></script>
+        <link rel="stylesheet" href="{% static "css/compare_ratios.css" %}">
+        <script>
+            var companyData = {{ dates|safe }};
+            var result = {{ result|safe }};
+        </script>
+    {% endblock %}
+{% block content %}
+    <main>
+        <div class="selection">
+            <form action="">
+                <label for="company">Company:</label>
+                <select name="company" id="company" required>
+                    <option value="" disabled selected hidden>Company</option>
+                    {% for item in dates %}
+                        <option value="{{ item.company }}">{{ item.company }}</option>
+                    {% endfor %}
+                </select>
+                <label for="year1">Year 1:</label>
+                <select name="year1" id="year1" required>
+                    <option value="" disabled selected hidden>Year 1</option>
+                </select>
+                <label for="year2">Year 2:</label>
+                <select name="year2" id="year2" required>
+                    <option value="" disabled selected hidden>Year 2</option>
+                </select>
+                <label for="type">Type:</label>
+                <select name="type" id="type" required>
+                    <option value="" disabled selected hidden>Type</option>
+                    <option value="liquidity">Liquidity</option>
+                    <option value="leverage">Leverage</option>
+                    <option value="assetsto">Assets Turnover</option>
+                    <option value="profitability">Profitability</option>
+                    <option value="marketvalue">Market Value</option>
+                </select>
+                <button>View Ratios</button>
+            </form>
+        </div>
+        <div class="results">
+            <h2>{{ request.GET.company|title }} - {{ request.GET.year1 }} x {{ request.GET.year2 }} - {{ request.GET.type|title }}</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ratios</th>
+                        <th>{{ request.GET.year1 }}</th>
+                        <th>{{ request.GET.year2 }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ratio in result %}
+                        <tr>
+                            <td class="comparison-year" id="{{ ratio.name }}" onclick="showPopup('{{ ratio.year_1.formula }}', '{{ ratio.year_1.numbers }}', '{{ ratio.year_2.formula }}', '{{ ratio.year_2.numbers }}', '{{ ratio.year_1.value }}', '{{ ratio.year_2.value }}', '{{ ratio.year_1.status }}', '{{ ratio.year_2.status }}')">{{ ratio.name }}</td>
+                            <td class="{{ ratio.year_1.status }}">{{ ratio.year_1.value }}</td>
+                            <td class="{{ ratio.year_2.status }}">{{ ratio.year_2.value }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <div class="popup" id="popup">
+        <button class="close-button" onclick="closePopup()">x</button>
+        <h2>Detailed Comparison</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>{{ request.GET.year1 }}</th>
+                    <th>{{ request.GET.year2 }}</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div class="popup-overlay" id="popup-overlay"></div>
+{% endblock %}

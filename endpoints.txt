@@ -1,4 +1,0 @@
-api/v1/dates -> GET -> list of dates
-api/v1/balance?years={1 year} -> GET -> sec resp
-ap1/v1/balance?years={2 years} -> GET -> general compare
-api/v1/balance?years={2 years}&ratio={ratio} -> GET -> one compare

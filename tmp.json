@@ -1,41 +1,34 @@
 {
-  "first_rep": {
-    "Dates": [
-      "2021",
-      "2022",
-      "2023"
-    ],
-    "totall Assets": 3.2,
-    "total Liabilities": 1.2
-  },
-  "sec resp": {
-    "2023": {
-      "current ratio": {
-        "value": 1.5,
-        "fourmula": {
-          "rule": "current assets / current liabilities",
-          "numbers": "1.5 / 1.0"
-        }
-      },
-      "quick ratio": {
-        "value": 1.0,
-        "fourmula": {
-          "rule": "(current assets - inventory) / current liabilities",
-          "numbers": "(1.5 - 0.5) / 1.0"
-        }
-      },
-      "cash ratio": {
-        "value": 0.5,
-        "fourmula": {
-          "rule": "(cash + inventory + Accounts receivable) / current liabilities",
-          "numbers": "(0.5 + 0.0 + 0.0) / 1.0"
-        }
-      }
+  "first_rep": [
+    {
+      "company": "company 1",
+      "Dates": ["2023", "2024"]
+    },
+    {
+      "company": "company 2",
+      "Dates": ["2023", "2024"]
     }
+  ],
+  "sec resp": {
+    "2023": [
+      {
+        "type": "current ratio",
+        "value": 1.5,
+        "formula": "current assets / current liabilities",
+        "number": "1.5 / 1.0"
+      },
+      {
+        "type": "quick ratio",
+        "value": 1.0,
+        "formula": "current assets - INV / current liabilities",
+        "number": "1.5 / 1.0"
+      }
+    ]
   },
   "one compare": {
     "ratio": "current ratio",
-    "fourmula": "current assets / current liabilities",
+    "formula": "current assets / current liabilities",
+    "componotes": ["current assets", "current liabilities"],
     "2023": {
       "value": 1.5,
       "current assets": 1.5,
@@ -50,27 +43,14 @@
     }
   },
   "general compare": {
+    "ratios": ["current ratio", "quick ratio"],
     "2023": {
-      "current ratio": {
-        "value": 1.5
-      },
-      "quick ratio": {
-        "value": 1.0
-      },
-      "cash ratio": {
-        "value": 0.5
-      }
+      "current ratio": 1.5,
+      "quick ratio": 1.5
     },
     "2024": {
-      "current ratio": {
-        "value": 1.5
-      },
-      "quick ratio": {
-        "value": 1.0
-      },
-      "cash ratio": {
-        "value": 0.5
-      }
+      "current ratio": 1.5,
+      "quick ratio": 1.5
     }
   }
 }

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block extra_head %}
+    {{ block.super }}
+        {% load static %}
+        <link rel="stylesheet" href="{% static "css/add_company.css" %}">
+        <script src="{% static "js/add_company.js" %}"></script>
+    {% endblock %}
+{% block content %}
+        <main>
+            {% if added %}
+                <div class="added-alert">
+                    <h2>Company Added Successfully!</h2>
+                </div>
+            {% endif %}
+            <form action="save" method="POST">
+                {% csrf_token %}
+                <h1>Add Company</h1>
+                <div class="top-input-row">
+                    <div class="top-input-group">
+                        <label for="company">Company Name:</label>
+                        <input type="text" id="company" placeholder="Company Name" name="company" pattern="[A-Za-z\s]+" title="Please enter letters and spaces only" required>
+                    </div>
+                    <div class="top-input-group">
+                        <label for="year">Financial Year:</label>
+                        <input type="text" id="year" placeholder="Financial Year" name="year" pattern="[0-9]{4}" title="Please enter 4 numbers only" required>
+                    </div>
+                </div>
+                <hr>
+                <div class="values">
+                    {% for item in dates %}
+                        {% if forloop.counter0|divisibleby:4 or forloop.first %}
+                            <div class="input-row">
+                        {% endif %}
+                        <div class="input-group">
+                            <label for="{{ item }}">{{ item|capfirst }}:</label>
+                            <input type="text" id="{{ item }}" placeholder="{{ item|capfirst }}" name="{{ item }}" pattern="[1-9][0-9]*" title="Please enter numbers only (cannot start with 0)" required>
+                        </div>
+                        {% if forloop.counter|divisibleby:4 or forloop.last %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="buttons-part">
+                    <button type="reset" class="reset-button">Reset</button>
+                    <button type="submit">Add Company</button>
+                </div>
+            </form>
+        </main>
+{% endblock %}

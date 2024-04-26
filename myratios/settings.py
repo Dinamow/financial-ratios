@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from django.core.management.utils import get_random_secret_key
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-#rnp8ms&(99f2a6dpv50jckpr%p4xt+es9fwb$j2mjzenf&ozf'
+SECRET_KEY = get_random_secret_key()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -31,7 +33,9 @@ ALLOWED_HOSTS = ['127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    'myapp.apps.MyappConfig',
     'django.contrib.admin',
+    'corsheaders',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -42,6 +46,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -54,7 +59,7 @@ ROOT_URLCONF = 'myratios.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'myapp/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -62,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.static',
             ],
         },
     },
@@ -77,6 +83,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    'test': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'test_db.sqlite3',
     }
 }
 
@@ -111,11 +121,19 @@ USE_I18N = True
 
 USE_TZ = True
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://localhost:5173"
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

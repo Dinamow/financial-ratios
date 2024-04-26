@@ -1,0 +1,25 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>RatioCalc - Home</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static "css/global.css" %}">
+        <link rel="icon" href="{% static "img/rc-logo.png" %}">
+        {% block extra_head %}{% endblock %}
+    </head>
+    <body>
+        <nav>
+            <img src="{% static "img/rc-logo.png" %}" alt="RatioCalc Logo">
+            <ul>
+                <li><a href="landing">Home</a></li>
+                <li><a href="{% url "view_ratios" %}">View Ratios</a></li>
+                <li><a href="{% url "compare_ratios" %}">Compare Ratios</a></li>
+                <li><a href="{% url "add_company" %}">Add Company</a></li>
+            </ul>
+        </nav>
+        {% block content %}{% endblock %}
+    </body>
+</html>
