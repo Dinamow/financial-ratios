@@ -775,9 +775,11 @@ class Engine(Lequidity, Leveraging, AssetsTO, Profitability, MarketValue):
                     }
 
                 if ratio_info['year_1']['value'] < ratio_info['year_2']['value']:
+                    ratio_info['year_1']['status'] = 'lower'
                     ratio_info['year_2']['status'] = 'higher'
                 elif ratio_info['year_1']['value'] > ratio_info['year_2']['value']:
-                    ratio_info['year_1']['status'] = 'lower'
+                    ratio_info['year_1']['status'] = 'higher'
+                    ratio_info['year_2']['status'] = 'lower'
                 else:
                     ratio_info['year_1']['status'] = 'equal'
                     ratio_info['year_2']['status'] = 'equal'
