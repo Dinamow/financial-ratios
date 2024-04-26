@@ -1,6 +1,4 @@
 document.addEventListener("DOMContentLoaded", function() {
-    console.log("DOM loaded and parsed");
-    console.log("Company data: ", companyData);
     var companySelect = document.getElementById("company");
     var yearSelect = document.getElementById("year");
     var resultsElement = document.querySelector(".results");
@@ -9,10 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var hasParameters = urlSearchParams.has('company');
 
     if (!hasParameters) {
-        console.log("No parameters found in URL");
         resultsElement.style.display = "none";
-    } else {
-        console.log("Parameters found in URL");
     }
 
     companySelect.addEventListener("change", function() {

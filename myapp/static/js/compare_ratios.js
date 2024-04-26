@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function() {
-    console.log(companyData);
     var companySelect = document.getElementById("company");
     var year1Select = document.getElementById("year1");
     var year2Select = document.getElementById("year2");
