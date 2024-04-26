@@ -35,6 +35,15 @@
                 <button type="submit">View Ratios</button>
             </form>
         </div>
+        {% if not result %}
+        <style>
+            main {
+                background-image: url(../static/img/rc-logo-copy.png);
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+        </style>
+        {% endif %}
         <div class="results">
             <h2>{{ request.GET.company|title }} - {{ request.GET.year }} - {{ request.GET.type|title }}</h2>
             <table>
