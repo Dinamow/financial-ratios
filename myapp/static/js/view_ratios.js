@@ -2,12 +2,15 @@ document.addEventListener("DOMContentLoaded", function() {
     var companySelect = document.getElementById("company");
     var yearSelect = document.getElementById("year");
     var resultsElement = document.querySelector(".results");
+    var loadingElement = document.querySelector(".loading");
 
     var urlSearchParams = new URLSearchParams(window.location.search);
     var hasParameters = urlSearchParams.has('company');
 
     if (!hasParameters) {
         resultsElement.style.display = "none";
+    } else {
+        loadingElement.style.display = "none";
     }
 
     companySelect.addEventListener("change", function() {

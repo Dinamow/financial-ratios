@@ -9,10 +9,24 @@
     display: flex;
     align-items: center;
 
+    h1 {
+        font-size: 48px;
+        color: #778da9;
+        text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+        margin-bottom: 10px;
+    }
+
+    h2 {
+        font-size: 28px;
+        color: #778da9;
+        text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+        margin-bottom: 10px;
+    }
+
     .presentation-data {
         width: calc(100% - 1200px);
         margin: auto;
-        background-color: rgba(255, 255, 255, 0.8);
+        background-color: #2b37468a;
         padding: 20px;
         border-radius: 10px;
         box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
@@ -28,12 +42,12 @@
         &:hover {
             transform: scale(1.1);
             transition: all 0.3s ease;
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: #2b3746d0;
         }
     
         hr {
             width: 100%;
-            margin: 10px 0;
+            margin: 15px 0;
             background-color: #464646;
             height: 1px;
         }

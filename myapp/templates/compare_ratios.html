@@ -40,6 +40,7 @@
                 <button>View Ratios</button>
             </form>
         </div>
+        <div class="loading"></div>
         <div class="results">
             <h2>{{ request.GET.company|title }} - {{ request.GET.year1 }} x {{ request.GET.year2 }} - {{ request.GET.type|title }}</h2>
             <table>
@@ -50,16 +51,6 @@
                         <th>{{ request.GET.year2 }}</th>
                     </tr>
                 </thead>
-                {% if not result %}
-        <style>
-            main {
-                background-image: url(../static/img/rc-logo-copy.png);
-                background-repeat: no-repeat;
-                background-position: center;
-                background-position-y: 20px;
-            }
-        </style>
-        {% endif %}
                 <tbody>
                     {% for ratio in result %}
                         <tr>

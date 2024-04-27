@@ -12,5 +12,9 @@ main {
 
     .results {
         margin-top: 20px;
+
+        h2 {
+            margin-bottom: 2%;
+        }
     }
 }

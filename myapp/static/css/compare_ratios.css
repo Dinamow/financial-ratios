@@ -12,6 +12,10 @@ main {
 
     .results {
         margin-top: 20px;
+
+        h2 {
+            margin-bottom: 2%;
+        }
     }
 }
 
@@ -23,16 +27,19 @@ main {
     width: 50%;
     min-height: calc(50% - 40px);
     transform: translate(-50%, -50%);
-    
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
 
+    h2 {
+        margin-bottom: 5%;
+    }
+
     .close-button {
         position: absolute;
-        top: 10px;
-        right: 10px;
+        top: 15px;
+        right: 15px;
         background-color: red;
         cursor: pointer;
         width: 25px;

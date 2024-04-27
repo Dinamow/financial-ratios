@@ -1,29 +1,52 @@
 @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Oswald:wght@200..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+:root {
+    --bg-color: #0d1b2a;
+    --bg-2-color: #2b3746;
+
+    --nav-color: #415a77;
+    --nav-items-color: #e0e1dd;
+    --nav-items-hover-color: #1b263b;
+    --nav-items-hover-bg-color: #e9e7f3;
+
+    --titles-color: #e0e1dd;
+    --text-color: #e0e1dd;
+
+    --good-buttons-color: #e0e1dd;
+    --good-buttons-hover-color: #778da9;
+    --bad-buttons-color: #dc3545;
+    --bad-buttons-hover-color: #c82333;
+    --buttons-text-color: #1b263b;
+
+    --table-color: #ffffff;
+    --table-even-rows-color: #242e3a;
+    --table-headers-color: #415a77;
+    --table-headers-text-color: #ffffff;
+    --table-text-color: #333;
+    --table-border-color: #ddd;
+}
+
+main {
+    background-color: var(--bg-2-color) !important;
+    color: var(--text-color) !important;
+}
+
 body {
     font-family: "Kanit", sans-serif;
-    background-color: #19181A;
+    background-color: var(--bg-color);
+    color: var(--text-color)
 }
 
 h1, h2, h3 {
     font-weight: bold;
-    color: whitesmoke;
+    color: var(--titles-color);
     text-align: center;
-
-    text-transform: uppercase;
-    font-family: verdana;
-    color: #f5f5f5;
-    text-shadow: 1px 1px 1px #919191,
-    1px 18px 6px rgba(16,16,16,0.4),
-    1px 22px 10px rgba(16,16,16,0.2),
-    1px 25px 35px rgba(16,16,16,0.2),
-    1px 30px 60px rgba(16,16,16,0.4);
 }
 
 nav {
     display: flex;
-    background-color: rgba(0, 0, 0, 0.521);
-    color: #ffffff;
+    background-color: var(--nav-color);
+    color: var(--nav-items-color);
     padding: 0 25px;
     height: 100px;
     border-radius: 10px;
@@ -52,15 +75,15 @@ nav {
 
             a {
                 text-decoration: none;
-                color: #ffffff;
+                color: var(--nav-items-color);
                 font-size: 22px;
                 padding: 10px;
                 border-radius: 10px;
                 transition: all 0.3s ease;
                 &:hover {
-                    color: black;
+                    color: var(--nav-items-hover-color);
                     transition: all 0.5s ease;
-                    background-color: #e9e7f3;
+                    background-color: var(--nav-items-hover-bg-color);
                     box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
                 }
             }
@@ -71,7 +94,6 @@ nav {
 label {
     font-size: 18px;
     margin-right: 10px;
-    color: whitesmoke;
 }
 
 select, input {
@@ -79,22 +101,24 @@ select, input {
     border-radius: 5px;
     font-size: 18px;
     margin-right: 15px;
-    border: 1px solid black;
+    border: 1px solid var(--nav-items-color);
+    background-color: var(--nav-color);
+    color: var(--nav-items-color) !important;
 
     &[type="text"] {
         width: 95%;
         padding: 8px;
-        border: 1px solid #ddd;
+        border: 1px solid var(--nav-items-color);
         border-radius: 4px;
         transition: border-color 0.3s ease;
     }
 
-    &:focus {
-        border-color: #007bff;
+    &:focus, &:active, &:focus-visible {
+        border-color: var(--nav-color);
     }
 
-    &:active {
-        border-color: #007bff;
+    &::placeholder {
+        color: var(--nav-items-color);
     }
 }
 
@@ -102,14 +126,14 @@ button {
     padding: 10px;
     border-radius: 5px;
     font-size: 18px;
-    background-color: black;
-    color: #ffffff;
+    background-color: var(--good-buttons-color);
+    color: var(--buttons-text-color);
     border: none;
     cursor: pointer;
     box-shadow: rgba(0, 0, 0, 0.151) 0px 5px 15px;
     transition: all 0.3s ease;
     &:hover {
-        background-color: darkslategray;
+        background-color: var(--good-buttons-hover-color);
         transition: all 0.3s ease;
     }
 }
@@ -117,52 +141,29 @@ button {
 table {
     width: 80%;
     margin: auto;
-    border: 1px solid #ddd;
+    border: 1px solid var(--table-border-color);
     box-shadow: rgba(0, 0, 0, 0.096) 0px 5px 15px;
 
     thead {
-        background-color: black;
-        color: white;
+        background-color: var(--table-headers-color);
+        color: var(--table-headers-text-color);
         font-size: 20px;
 
         th {
             padding: 10px;
             text-align: left;
-            border-bottom: 2px solid #ddd;
+            border: 1px solid var(--table-border-color);
         }
     }
 
     tbody {
         td {
             padding: 10px;
-            border-bottom: 1px solid #ddd;
-
-            button {
-                color: #007bff;
-                background-color: black;
-                padding: 0;
-                /* margin-left: 40%; */
-                width: 30px;
-                height: 30px;
-                font-weight: bold;
-                font-size: 22px;
-                border-radius: 50%;
-    
-                &:hover {
-                    color: white;
-                    transition: all 0.3s ease;
-                }
-            }
+            border: 1px solid var(--table-border-color);
         }
 
         tr:nth-child(even) {
-            background-color: #19181A;
-            color: whitesmoke;
-        }
-        
-        tr:nth-child(odd) {
-            background-color: #19181A;
-            color: whitesmoke;
+            background-color: var(--table-even-rows-color);
         }
 
         .higher {
@@ -180,8 +181,8 @@ table {
 }
 
 .reset-button {
-    background-color: #dc3545;
-    color: #ffffff;
+    background-color: var(--bad-buttons-color);
+    color: var(--nav-items-color);
     padding: 10px;
     border-radius: 5px;
     font-size: 18px;
@@ -190,7 +191,19 @@ table {
     box-shadow: rgba(0, 0, 0, 0.151) 0px 5px 15px;
     transition: all 0.3s ease;
     &:hover {
-        background-color: #c82333;
+        background-color: var(--bad-buttons-hover-color);
         transition: all 0.3s ease;
     }
+}
+
+.popup {
+    background-color: var(--bg-2-color);
+}
+
+.loading {
+    background-image: url(../img/rc-logo.png);
+    background-position: 50%;
+    background-repeat: no-repeat;
+    height: calc(100vh - 500px);
+    filter: brightness(0) invert(1) grayscale(1);
 }
