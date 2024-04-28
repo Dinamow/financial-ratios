@@ -1,4 +1,3 @@
-"""models module than contain all the classes"""
 from django.db import models
 from math import sqrt
 import re
@@ -6,31 +5,26 @@ import re
 
 # Create your models here.
 class Dates(models.Model):
-    """the Dates class for the db table"""
     db_table = 'dates'
     date = models.CharField(max_length=10,
                             verbose_name="Date",
                             unique=True)
 
     def __str__(self) -> str:
-        """the str mthod"""
         return self.date
 
 
 class Company(models.Model):
-    """the company class for the db table"""
     db_table = 'companies'
     name = models.CharField(max_length=100,
                             verbose_name="Company Name",
                             unique=True)
 
     def __str__(self) -> str:
-        """the str mthod"""
         return self.name
 
 
 class Ratios(models.Model):
-    """the ratios class for the db table"""
     db_table = 'ratios'
     number_of_shares = models.FloatField(
         verbose_name="Number of Shares", default=0.0)
@@ -72,7 +66,6 @@ class Ratios(models.Model):
     date = models.ForeignKey(Dates, on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
-        """the save method"""
         for coloumn in self._meta.fields:
             n = coloumn.name
             v = getattr(self, n)
@@ -86,23 +79,19 @@ class Ratios(models.Model):
         super().save(*args, **kwargs)
 
     def get_dividans_ratio(self):
-        """get_dividans_ratio method to calc the divi ratio"""
         return round(
             self.dividends / self.net_income,
             2) if self.net_income != 0 else 0.0
 
     def get_book_value(self):
-        """get_book_value method to calc the B.V"""
         return round(self.total_equity / self.number_of_shares,
                      2) if self.number_of_shares != 0 else 0.0
 
     def get_eps(self):
-        """get_eps method to calc the eps"""
         return round(self.net_income / self.number_of_shares,
                      2) if self.number_of_shares != 0 else 0.0
 
     def __str__(self) -> str:
-        """the str method"""
         return self.company.name + ' - ' + self.date.date
 
 
@@ -110,7 +99,6 @@ class Lequidity():
     """lequidity class"""
 
     def date(self, year, company):
-        """date method to init the vars with db values of a company and year"""
         year_obj = Dates.objects.filter(date=year).first()
         company_obj = Company.objects.filter(name=company).first()
         if not year_obj or not company_obj:
@@ -179,7 +167,6 @@ class Leveraging():
     """leverage class"""
 
     def date(self, year, company):
-        """date method to init the vars with db values of a company and year"""
         year_obj = Dates.objects.filter(date=year).first()
         company_obj = Company.objects.filter(name=company).first()
         if not year_obj or not company_obj:
@@ -227,7 +214,11 @@ class Leveraging():
 
     def get_times_interest_earned_value(self):
         """return times interest earned value"""
-        return {"value": round(self.__ebit / self.__interest, 2)}
+        if self.__interest == 0:
+            value = 'Inf'
+        else:
+            value = round(self.__ebit / self.__interest, 2)
+        return {"value": value}
 
     def get_times_interest_earned_formula(self):
         """return times interest earned formula"""
@@ -236,7 +227,11 @@ class Leveraging():
 
     def get_ebitda_coverage_value(self):
         """return EBITDA coverage value"""
-        return {"value": round(self.__ebitda / self.__interest, 2)}
+        if self.__interest == 0:
+            value = 'Inf'
+        else:
+            value = round(self.__ebitda / self.__interest, 2)
+        return {"value": value}
 
     def get_ebitda_coverage_formula(self):
         """return EBITDA coverage formula"""
@@ -248,7 +243,6 @@ class AssetsTO():
     """assets turn over class"""
 
     def date(self, year, company):
-        """date method to init the vars with db values of a company and year"""
         year_obj = Dates.objects.filter(date=year).first()
         company_obj = Company.objects.filter(name=company).first()
         if not year_obj or not company_obj:
@@ -370,7 +364,6 @@ class AssetsTO():
 class Profitability():
 
     def date(self, year, company):
-        """date method to init the vars with db values of a company and year"""
         year_obj = Dates.objects.filter(date=year).first()
         company_obj = Company.objects.filter(name=company).first()
         if not year_obj or not company_obj:
@@ -508,10 +501,8 @@ class Profitability():
 
 
 class MarketValue():
-    """market value class"""
 
     def date(self, year, company):
-        """date method to init the vars with db values of a company and year"""
         year_obj = Dates.objects.filter(date=year).first()
         company_obj = Company.objects.filter(name=company).first()
         if not year_obj or not company_obj:
@@ -558,7 +549,7 @@ class MarketValue():
 
     def get_fair_value_of_stock_value(self):
         """return fair value of stock value"""
-        return {"value": sqrt(1.5 * 15 * self.__book_value * self.__eps)}
+        return {"value": round(sqrt(1.5 * 15 * self.__book_value * self.__eps), 2)}
 
     def get_fair_value_of_stock_formula(self):
         """return fair value of stock formula"""
@@ -573,7 +564,6 @@ class Engine(Lequidity, Leveraging, AssetsTO, Profitability, MarketValue):
     """engine class"""
 
     def __init__(self):
-        """the init method"""
         self.__RATIOSLIST = {
             'liquidity': [
                 'Current Ratio',
@@ -662,7 +652,6 @@ class Engine(Lequidity, Leveraging, AssetsTO, Profitability, MarketValue):
         return data
 
     def date(self, year, company):
-        """date method to init the vars with db values of a company and year"""
         year_obj = Dates.objects.filter(date=year).first()
         company_obj = Company.objects.filter(name=company).first()
         if not year_obj or not company_obj:
@@ -706,18 +695,15 @@ class Engine(Lequidity, Leveraging, AssetsTO, Profitability, MarketValue):
         return ratios_info
 
     def get_components(self, formula):
-        """return the components for the resp"""
         formula = str(formula).replace("sqrt", "")
         components = re.findall(r'\b[\w.]+\b', str(formula))
         return components
 
     def get_components_values(self, numbers):
-        """return the components values for the resp"""
         components_values = re.findall(r'\d+\.\d+|\d+', str(numbers))
         return components_values
 
     def check_ratio(self, ratio):
-        """check specific ratios if exists"""
         for ratios in self.__RATIOSLIST.values():
             if ratio in ratios:
                 return False
@@ -833,7 +819,6 @@ class Engine(Lequidity, Leveraging, AssetsTO, Profitability, MarketValue):
         return {"message": "Data saved successfully"}
 
     def get_raw(self):
-        """get raw data"""
         data = []
         for i in self.__RAWDATA:
             if i != 'eps' and i != 'book value' and i != 'dividansRatio':
