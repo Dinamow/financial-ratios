@@ -214,7 +214,11 @@ class Leveraging():
 
     def get_times_interest_earned_value(self):
         """return times interest earned value"""
-        return {"value": round(self.__ebit / self.__interest, 2)}
+        if self.__interest == 0:
+            value = 'Inf'
+        else:
+            value = round(self.__ebit / self.__interest, 2)
+        return {"value": value}
 
     def get_times_interest_earned_formula(self):
         """return times interest earned formula"""
@@ -223,7 +227,11 @@ class Leveraging():
 
     def get_ebitda_coverage_value(self):
         """return EBITDA coverage value"""
-        return {"value": round(self.__ebitda / self.__interest, 2)}
+        if self.__interest == 0:
+            value = 'Inf'
+        else:
+            value = round(self.__ebitda / self.__interest, 2)
+        return {"value": value}
 
     def get_ebitda_coverage_formula(self):
         """return EBITDA coverage formula"""
@@ -541,7 +549,7 @@ class MarketValue():
 
     def get_fair_value_of_stock_value(self):
         """return fair value of stock value"""
-        return {"value": sqrt(1.5 * 15 * self.__book_value * self.__eps)}
+        return {"value": round(sqrt(1.5 * 15 * self.__book_value * self.__eps), 2)}
 
     def get_fair_value_of_stock_formula(self):
         """return fair value of stock formula"""
